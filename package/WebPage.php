@@ -89,11 +89,11 @@ class WebPage
 
     private function generateModulePath($module)
     {
-        return $_SERVER['DOCUMENT_ROOT'] . "/modules/" . $module . ".php";
+        return DOCUMENT_ROOT."/modules/" . $module . ".php";
     }
 
     private function generateTemplatePath($template)
     {
-        return $_SERVER['DOCUMENT_ROOT'] . "/templates/" . $template . ".php";
+        return DOCUMENT_ROOT."/templates/" . $template . ".php";
     }
 }

@@ -6,8 +6,9 @@ AddCharset utf-8 *
 </IfModule>
 RewriteEngine On
 RewriteBase /
-ErrorDocument 404 /404/
-RewriteRule index.php.* - [L]
+
+RewriteRule /?\.htaccess$ - [F,L]
+RewriteRule /?config\.php$ - [F,L]
 
 RewriteRule ^news-(.*)$ index.php?module=new&id_news=$1 [L,QSA]
 RewriteRule ^page-(.*)$ index.php?module=page&id_page=$1 [L,QSA]

@@ -1,6 +1,5 @@
 <?
-
-include_once ("DBObject.php");
+import("package/DBObject.php");
 
 class Account extends DBObject {
 

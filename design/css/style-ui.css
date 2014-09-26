@@ -1,0 +1,298 @@
+@import "style-menu.css" all;
+@import "style-news.css" all;
+@import "style-pages.css" all;
+
+@import "http://webfonts.ru/import/cuprum.css";
+
+aside {
+	padding: 0;
+	background: none;
+	border: none;
+	color: #999;
+	padding-left: 22px;
+	border-radius: 0;
+	border-left: solid 8px #f0e9db;
+}
+
+h1 {
+    font-size: 60px;
+	line-height: 60px;
+	font-weight: 200;
+	padding: 30px 0 4px 0;
+	margin-bottom: 30px;
+	border-bottom: solid 1px #eeeeee;
+}
+
+h2
+{
+    color: #1481b8;
+	line-height: 35px;
+	font-weight: 300;
+	margin: 20px 0 15px -38px;
+	padding: 0 0 2px 30px;
+	border-left: solid 8px #d9eaf2;
+}
+
+h3
+{
+    margin:0 0 8px 0;
+    color: #666;
+    font-size: 1.2em;
+    line-height: 1.0em;
+}
+
+.agreement
+{
+    overflow: auto;
+    width: 100%;
+    height:300px;
+    border: 1px solid #ddd;
+}
+
+.agreement strong
+{
+    color: #70B9ED;
+}
+
+.imageL
+{
+	float: left;
+	max-width: 40%;
+	margin: 0px 15px 15px 0px;
+}
+
+.imageR
+{
+	float: right;
+	max-width: 40%;
+	margin: 0px 0px 15px 15px;
+}
+
+.imageL img, .imageR img
+{
+	width: 100%;
+}
+
+span.length
+{
+	color:#81ACED;
+	font-weight:400;
+}
+.results
+{
+	width:100%;
+	overflow:auto;
+}
+.results table
+{
+	width:100%;
+}
+.clear_fix :after
+{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.results .head
+{
+	width:100%;
+	color:#2B587A;
+	border-bottom:1px solid #2B587A;
+	margin-bottom:10px;
+	font-size:1.5em;
+}
+
+.fl_l
+{ 
+	float: left;
+}
+.fl_r
+{ 
+	float: right;
+}
+
+.top_msg
+{
+	border:1px solid #6FA433;
+	background:#D0F3B6;
+	padding:7px 10px;
+	margin-bottom:5px;
+}
+.top_error
+{
+    border:1px solid #ff0000;
+    background:#c60f0f;
+    padding:7px 10px;
+    margin-bottom:5px;
+    color: #FFF;
+    font-weight: 600;
+}
+
+.bar
+{
+	background:#F7F7F7;
+	padding: 10px;
+	min-height: 10px;
+	width:100%;
+	outline:1px solid #DDD;
+	margin-bottom:10px;
+}
+.bar .label
+{
+	color:#777;
+	padding-left:5px;
+}
+.bar table
+{
+	width:100%;
+}
+
+div.list-button
+{
+    width:inherit;
+}
+div.list-button a
+{
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
+    padding: 10px 25px;
+    height: 40px;
+    text-align: center;
+    color: #2b587a;
+    text-decoration: none;
+    border-bottom: 1px solid #DDD;
+}
+div.list-button a:hover
+{
+    background: #8ec1da;
+    color: #FFF;
+}
+
+.magnifier
+{
+    width: 250px;
+    background: url('/design/images/magnifier.png') left #fff no-repeat;
+    background-position: 5px 4px;
+    padding-left:35px;
+    font-size: 1em;
+    height: 25px;
+}
+
+.magnifier:hover,.magnifier:active
+{
+    box-shadow:0 0 15px #c68135;
+}
+
+button
+{
+    padding: 5px 10px;
+    vertical-align: middle;
+    border: none;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: #ffa945;
+    font-family: 'Cuprum';
+    font-size: 13px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+div.form
+{
+    overflow: auto;
+}
+
+div.form .row
+{
+    width: 100%;
+    overflow: auto;
+    padding: 5px 0px;
+}
+
+div.form .row > .input
+{
+    width: auto;
+}
+
+div.form .row > .label
+{
+    font-weight: bold;
+}
+
+div.form .row > .header
+{
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+div.column li
+{
+    margin-left: 1.5em;
+}
+
+table.smart
+{
+    width: 100%;
+}
+
+table.smart th
+{
+    background: #fb9902;
+    font-weight: bold;
+    padding: 5px;
+}
+
+table.smart th, table.smart td
+{
+    text-align: center;
+    border:1px solid #333;
+}
+
+table.w33 th, table.w33 td
+{
+	width:33%;
+}
+
+.navigate_menu
+{
+    text-align: center;
+    padding: 5px 0;
+    overflow: auto;
+}
+
+.navigate_menu a
+{
+    display: inline-block;
+    color: #fff;
+    background: #666;
+    font-weight: bold;
+    font-size: 1em;
+    border-radius: 50%/50%;
+    width: 25px;
+    height: 25px;
+    padding-top: 3px;
+    margin: 0 3px;
+}
+
+.faq_block
+{	
+	display:none;
+	border-left:1px solid #666;
+    border-right:1px solid #666;
+	padding: 0 5px;
+}
+
+pre
+{
+	color: #444;
+	font: normal 13px/16px "Source Code Pro", Menlo, Consolas, Monaco, monospace;
+	padding: 10px;
+	background: #f8fbfc;
+	border: solid 1px #f1f6f9;
+	border-bottom: solid 1px #d9eaf2;
+	border-radius: 3px;
+	overflow: auto;
+}

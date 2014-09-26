@@ -15,6 +15,6 @@ import("package/WebPage.php");
 import("package/Account.php");
 
 $current = WebPage::gi();
-$current->setModule(Request::get("module"));
+$current->setModule(Request::get("module", "index"));
 $current->setTemplate("default");
 $current->generate();

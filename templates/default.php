@@ -1,12 +1,9 @@
-<?
-$webpage = WebPage::gi();
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <title><?=$webpage->get(WebPage::TITLE);?></title>
+    <title><?=WebPage::gi()->get(WebPage::TITLE);?></title>
 
     <link rel="stylesheet" href="../design/css/style.css" type="text/css">
     <link rel="stylesheet" href="../design/css/style-ui.css" type="text/css">
@@ -33,31 +30,9 @@ $webpage = WebPage::gi();
 
         <div class="columns">
             <div class="column">
-                <?=$webpage->get(WebPage::CONTENT);?>
+                <?=WebPage::gi()->get(WebPage::CONTENT);?>
             </div>
-            <div class="column">
-                <div class="widget">
-
-                </div>
-                <div class="widget">
-                    <h3></h3>
-                    <div class="content">
-
-                    </div>
-                </div>
-                <div class="widget">
-                    <h3>Категории</h3>
-                    <div class="content">
-
-                    </div>
-                </div>
-                <div class="widget">
-                    <h3>Популярные статьи</h3>
-                    <div class="content">
-
-                    </div>
-                </div>
-            </div>
+        </div>
         </div>
         <footer>
             <div>
@@ -69,5 +44,5 @@ $webpage = WebPage::gi();
         </footer>
     </div>
 </div>
-
+</body>
 </html>

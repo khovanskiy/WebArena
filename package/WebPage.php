@@ -37,12 +37,20 @@ class WebPage
         return $default;
     }
 
+    /**
+     * Open new buffer and put it at the top of stack
+     *
+     * @param string $field_name key
+     */
     public function beginSet($field_name)
     {
         array_push($this->layers, $field_name);
         ob_start();
     }
 
+    /**
+     * Close last buffer, remove top of stack and save all its data
+     */
     public function endSet()
     {
         if (count($this->layers) > 0) {
@@ -71,6 +79,11 @@ class WebPage
         $this->template = $template;
     }
 
+    /**
+     * Redirect to another page
+     *
+     * @param string $url
+     */
     public function redirect($url)
     {
         header("Location: " . $url);

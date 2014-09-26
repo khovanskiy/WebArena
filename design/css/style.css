@@ -69,16 +69,18 @@ input
 
 .wrapper
 {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     z-index: 9;
+    overflow: auto;
+    outline: 1px solid deeppink;
 }
 
-.header
+header
 {
     width: 100%;
-    height:200px;
-    background: #fff;
+    height: 200px;
+    background: lightblue;
 }
 
 .columns
@@ -89,7 +91,7 @@ input
     background: #fff;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    padding: 0 15px;
+    padding: 0 0px;
 }
 
 .columns > .column
@@ -102,10 +104,10 @@ input
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 15px 10px;
+    padding: 15px 0px;
 }
 
-.footer
+footer
 {
 	margin-top:15px;
     width:100%;
@@ -115,7 +117,7 @@ input
     padding-buttom: 10px;
 }
 
-.footer > .column
+footer > .column
 {
     display: table-cell;
     vertical-align: top;
@@ -127,7 +129,7 @@ input
     box-sizing: border-box;
 }
 
-.footer > .column > div
+footer > .column > div
 {
     background: left no-repeat;
     height: 45px;
@@ -138,7 +140,7 @@ input
     color: #69696a;
 }
 
-.footer > .column > div a
+footer > .column > div a
 {
 	color: #69696a;
 }

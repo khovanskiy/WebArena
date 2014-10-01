@@ -16,33 +16,41 @@
     <script type="text/javascript"  src="../js/core.js" defer="defer"></script>
 </head>
 <body>
-<div class="layout">
-    <div class="wrapper">
-        <header role="banner">
-            Blog
-        </header>
-        <nav role="navigation">
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-        </nav>
-
-        <div class="columns">
-            <div class="column">
-                <?=WebPage::gi()->get(WebPage::CONTENT);?>
-            </div>
-        </div>
-        </div>
-        <footer>
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-        </footer>
+<div class="primary-message clear-fix">
+    <div class="container" style="text-align: center;">
+        WebArena - это классные фото и видео каждый день! <a href="/signin/">Присоединяйтесь к нам!</a> <a href="" class="close">x</a>
     </div>
 </div>
+<header class="clear-fix">
+    <div class="container">
+        <nav class="fl_r">
+            <ul>
+                <li><a href="">Популярное</a></li>
+                <li><a href="">Войти</a></li>
+                <li><a href="">Регистрация</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="content" style="padding-top: 50px;">
+    <div class="container">
+        <?=WebPage::gi()->get(WebPage::CONTENT);?>
+    </div>
+</div>
+<footer class="clear-fix">
+    <div class="container">
+        <nav class="fl_l">
+            <ul>
+                <li><a href="">Контакты</a></li>
+                <li><a href="">Блог</a></li>
+                <li><a href="">FAQ</a></li>
+                <li><a href="">Правила сайта</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright © 2014 WebArena, Inc. All rights reserved.
+        </div>
+    </div>
+</footer>
 </body>
 </html>

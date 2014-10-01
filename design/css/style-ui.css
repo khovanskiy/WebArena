@@ -41,6 +41,36 @@ h3
     line-height: 1.0em;
 }
 
+.clear-fix {
+    overflow: auto;
+}
+
+.copyright {
+    color: #a1a1a1;
+}
+
+.close {
+    opacity: 0.4;
+    text-decoration: none !important;
+    padding-left: 15px;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+.primary-message {
+    background: #d95626;
+    color: #fff;
+    min-height: 40px;
+    line-height: 40px;
+}
+
+.primary-message a {
+    color: #fff;
+    text-decoration: underline;
+}
+
 .agreement
 {
     overflow: auto;
@@ -169,21 +199,6 @@ div.list-button a:hover
 {
     background: #8ec1da;
     color: #FFF;
-}
-
-.magnifier
-{
-    width: 250px;
-    background: url('/design/images/magnifier.png') left #fff no-repeat;
-    background-position: 5px 4px;
-    padding-left:35px;
-    font-size: 1em;
-    height: 25px;
-}
-
-.magnifier:hover,.magnifier:active
-{
-    box-shadow:0 0 15px #c68135;
 }
 
 button

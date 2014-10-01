@@ -18,6 +18,7 @@ html
 header, nav, section, article, aside, footer
 {
 	display: block;
+    width: 100%;
 }
 
 body
@@ -76,12 +77,40 @@ input
     outline: 1px solid deeppink;
 }
 
-header
-{
-    width: 100%;
-    height: 200px;
-    background: lightblue;
+header {
+    height: 50px;
+    background: #343131;
 }
+
+header nav {
+    width: auto;
+}
+
+header nav li {
+    display: inline-block;
+    line-height: 50px;
+    padding-left: 30px;
+}
+
+header nav li a {
+    font-size: 1em;
+    color: #fff;
+    text-shadow: 0 -1px 0 #000;
+    display: inline;
+}
+
+header nav li a:hover {
+    color: #358cce;
+}
+
+.content {
+    background: #f0f0f0;
+}
+
+.content > .container {
+    background: #fff;
+}
+
 
 .columns
 {
@@ -107,40 +136,28 @@ header
     padding: 15px 0px;
 }
 
-footer
-{
-	margin-top:15px;
-    width:100%;
-    height:70px;
-    overflow: hidden;
-    padding-top: 10px;
-    padding-buttom: 10px;
+.container {
+    margin: 0 auto;
+    width: 1000px;
 }
 
-footer > .column
-{
-    display: table-cell;
-    vertical-align: top;
-    width: auto;
-    position: relative;
-    padding-top: 5px;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+footer {
+    background: #fff;
+    padding: 15px 0;
 }
 
-footer > .column > div
-{
-    background: left no-repeat;
-    height: 45px;
-    padding-left: 49px;
-    padding-top: 14px;
-    margin-left: 40px;
-    font-size: 1.2em;
-    color: #69696a;
+footer nav li {
+    display: inline-block;
+    line-height: 50px;
+    padding-right: 30px;
 }
 
-footer > .column > div a
-{
-	color: #69696a;
+footer nav li a {
+    font-size: 1em;
+    color: #6d7174;
+    display: inline;
+}
+
+footer nav li a:hover {
+    color: #358cce;
 }

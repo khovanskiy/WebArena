@@ -1,6 +1,4 @@
-@import "style-menu.css" all;
-@import "style-news.css" all;
-@import "style-pages.css" all;
+@import "style-posts.css" all;
 
 @import "http://webfonts.ru/import/cuprum.css";
 
@@ -41,8 +39,17 @@ h3
     line-height: 1.0em;
 }
 
+.clear-fix:before, .clear-fix:after {
+    content: "";
+    display: table;
+}
+
+.clear-fix:after {
+    clear: both;
+}
+
 .clear-fix {
-    overflow: auto;
+    *zoom: 1;
 }
 
 .copyright {
@@ -62,6 +69,7 @@ h3
 .primary-message {
     background: #d95626;
     color: #fff;
+    font-size: 1.4em;;
     min-height: 40px;
     line-height: 40px;
 }

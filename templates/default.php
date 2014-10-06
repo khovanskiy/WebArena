@@ -32,7 +32,7 @@
         </nav>
     </div>
 </header>
-<div class="content" style="padding-top: 50px;">
+<div class="content" style="padding-top: 20px;">
     <div class="container">
         <?=WebPage::gi()->get(WebPage::CONTENT);?>
     </div>

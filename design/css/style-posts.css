@@ -1,0 +1,95 @@
+.posts_grid {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.posts_grid > div {
+    display: table-cell;
+    width: 100%;
+    padding: 10px;
+}
+
+.posts_grid .post_cell {
+    overflow: auto;
+    width: 100%;
+    height: 270px;
+    background: #fff;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.posts_grid .post_cell > .inner {
+    width: 100%;
+    float: left;
+    background: no-repeat center center;
+    background-size: cover;
+}
+
+.posts_grid .post_cell .header {
+    height: 55px;
+    padding: 25px 25px 0 25px;
+}
+
+.posts_grid .post_cell .content {
+    font-size: 1.8em;
+    line-height: 1.8em;
+    color: #343131;
+    display: block;
+    height: 160px;
+    padding-bottom: 30px;
+    overflow: hidden;
+}
+
+.posts_grid .post_cell .content .title {
+    display: block;
+    color: #343131;
+    width: auto;
+    height: 100%;
+    padding: 0 25px;
+}
+
+.posts_grid .post_cell .inner-background .title {
+    color: #fff;
+    text-shadow: 2px 2px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.posts_grid .post_cell .video {
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.posts_grid .post_cell .thumbnail {
+    float: left;
+    width: 50%;
+    height: 100%;
+    background: orangered;
+    overflow: hidden;
+    background: no-repeat center center;
+    background-size: cover;
+}
+
+.posts_grid .post_cell .thumbnail img {
+    width: 100%;
+}
+
+.posts_grid .post_cell .footer {
+    height: 55px;
+    padding: 17px 25px 25px 25px;
+    font-size: 1.4em;
+    line-height: 1.4em;
+    background: #fff;
+}
+
+.posts_grid .post_cell .footer a {
+    color: #343131;
+}
+
+.posts_grid .post_cell .footer a:hover {
+    color: #358cce;
+}

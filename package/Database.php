@@ -13,11 +13,20 @@ class Database
         self::$pdo->query("set names utf8");
     }
 
+    /**
+     * @param string $query
+     * @return PDOStatement
+     */
     public function query($query)
     {
         return self::$pdo->query($query);
     }
 
+    /**
+     * @param string $query
+     * @param array $params
+     * @return PDOStatement
+     */
     public function execute($query, $params = array())
     {
         if (isset(self::$cache[$query])) {
@@ -29,6 +38,9 @@ class Database
         return $sth;
     }
 
+    /**
+     * @return Database
+     */
     public static function gi()
     {
         if (self::$instance == null) {

@@ -25,9 +25,9 @@
     <div class="container">
         <nav class="fl_r">
             <ul>
-                <li><a href="">Популярное</a></li>
-                <li><a href="">Войти</a></li>
-                <li><a href="">Регистрация</a></li>
+                <li><a href="/">Лента</a></li>
+                <li><a href="/auth/">Войти</a></li>
+                <li><a href="/join/">Регистрация</a></li>
             </ul>
         </nav>
     </div>

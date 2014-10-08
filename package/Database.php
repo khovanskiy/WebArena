@@ -38,6 +38,10 @@ class Database
         return $sth;
     }
 
+    public function lastInsertId($name = null) {
+        return self::$pdo->lastInsertId($name);
+    }
+
     /**
      * @return Database
      */

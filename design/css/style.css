@@ -26,12 +26,10 @@ body
 	font: 10px/16px "Roboto", Tahoma, sans-serif;
 	width: 100%;
 	height: 100%;
-    background: url('/design/images/body-bg.jpg');
     background-color: #fff;
 }
 
-a
-{
+a {
 	color: #1481b8;
 	text-decoration: none;
 	outline: none;
@@ -39,14 +37,13 @@ a
 	transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-a:hover
-{
+a:hover {
 	/*text-decoration: underline;*/
 }
 
 table
 {
-	border-collapse:collapse;
+	border-collapse: collapse;
 }
 
 p
@@ -80,27 +77,73 @@ input
 header {
     height: 50px;
     background: #343131;
+    overflow: hidden;
 }
 
-header nav {
-    width: auto;
+.upper_menu {
+    display: table;
+    width: 100%;
+    height: 50px;
 }
 
-header nav li {
-    display: inline-block;
-    line-height: 50px;
-    padding-left: 30px;
-}
-
-header nav li a {
+.upper_menu a {
     font-size: 1.4em;
     color: #fff;
     text-shadow: 0 -1px 0 #000;
     display: inline;
 }
 
-header nav li a:hover {
+.upper_menu a:hover {
     color: #358cce;
+}
+
+.upper_menu > nav, .upper_menu > div {
+    display: table-cell;
+    width: auto;
+    vertical-align: top;
+}
+
+.upper_menu .logo {
+    padding-top: 15px;
+    width: 150px;
+    color: #fff;
+    height: 50px;
+}
+
+.upper_menu .logo a {
+    font-size: 2em;
+}
+
+.upper_menu .logo a:hover {
+    color: #d95626;
+}
+
+.upper_menu .navigate_menu ul {
+    height: 100%;
+}
+
+.upper_menu .navigate_menu li {
+    display: inline-block;
+    padding-left: 30px;
+    height: 100%;
+}
+
+.upper_menu .navigate_menu li a {
+    display: block;
+    height: 100%;
+    line-height: 50px;
+}
+
+.upper_menu .profile {
+    width: 100px;
+    padding: 15px 5px 0 0;
+    text-align: right;
+}
+
+.upper_menu .action {
+    width: auto;
+    padding: 15px 5px;
+    text-align: center;
 }
 
 body > .content {
@@ -128,9 +171,6 @@ body > .content > .container {
     vertical-align: top;
     width: auto;
     position: relative;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
     padding: 15px 0px;
 }
 

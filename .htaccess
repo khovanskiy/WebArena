@@ -10,8 +10,7 @@ RewriteBase /
 RewriteRule /?\.htaccess$ - [F,L]
 RewriteRule /?config\.php$ - [F,L]
 
-RewriteRule ^news-(.*)$ index.php?module=new&id_news=$1 [L,QSA]
-RewriteRule ^page-(.*)$ index.php?module=page&id_page=$1 [L,QSA]
+RewriteRule ^post-(.*)$ index.php?module=post&post_id=$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

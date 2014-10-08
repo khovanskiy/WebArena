@@ -14,6 +14,46 @@ $webpage = Webpage::gi();
 
 switch (Request::get("act"))
 {
+    case "add-post":
+    {
+        if (Account::isAuth()) {
+            $title = Request::post("title");
+            $type = (int)Request::post("type");
+
+            if (!empty($title) && $type != 0) {
+                switch ($type)
+                {
+                    case 1:
+                    {
+                        $meta_text = Request::post("meta_text", "");
+                        $cached_text = $meta_text;
+                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text) values(?, ?, now(), ?, ?, ?)", array(Account::getCurrent()->getId(), 1, $title, $meta_text, $cached_text));
+                        $webpage->redirect("/post-".Database::gi()->lastInsertId("post_id"));
+                    } break;
+                    case 4:
+                    {
+                        $meta_text = Request::post("meta_text", "");
+                        $cached_text = $meta_text;
+
+                        $content_url = Request::post("content_url", "");
+
+                        $thumbnail_url = Request::post("thumbnail_url", "");
+
+                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text) values(?, ?, now(), ?, ?, ?)", array(Account::getCurrent()->getId(), 2, $title, $meta_text, $cached_text));
+                        $webpage->redirect("/post-".Database::gi()->lastInsertId("post_id"));
+                    } break;
+                    default:
+                    {
+
+                    } break;
+                }
+            } else {
+                echo "title is empty";
+            }
+        } else {
+            echo "bad =(";
+        }
+    } break;
 	case "auth":
 	{
 		$login = Request::post("login");

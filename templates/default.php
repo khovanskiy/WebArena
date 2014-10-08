@@ -16,23 +16,69 @@
     <script type="text/javascript"  src="../js/core.js" defer="defer"></script>
 </head>
 <body>
+<? if (!Account::isAuth()) { ?>
 <div class="primary-message clear-fix">
     <div class="container" style="text-align: center;">
-        WebArena - это классные фото и видео каждый день! <a href="/signin/">Присоединяйтесь к нам!</a> <a href="" class="close">x</a>
+        WebArena - это классные фото и видео каждый день! <a href="/join/">Присоединяйтесь к нам!</a> <a href="" class="close">x</a>
     </div>
 </div>
+<? } ?>
 <header class="clear-fix">
-    <div class="container">
-        <nav class="fl_r">
-            <ul>
-                <li><a href="/">Лента</a></li>
-                <li><a href="/auth/">Войти</a></li>
-                <li><a href="/join/">Регистрация</a></li>
-            </ul>
-        </nav>
-    </div>
+    <? if (Account::isAuth()) { ?>
+        <div class="container">
+            <div class="upper_menu">
+                <div class="logo">
+                    <a href="/"><span class="fui-radio-checked"></span> WebArena</a>
+                </div>
+                <nav class="navigate_menu">
+                    <ul>
+                        <li><a href="/">Лучшее за сегодня</a></li>
+                        <li><a href="/">Свежее</a></li>
+                    </ul>
+                </nav>
+                <div class="add_post_action">
+                    <a href="/add/"><span class="fui-new"></span> Добавить пост</a>
+                </div>
+                <div class="profile">
+                    <a href="/profile-<?=Account::getCurrent()->getId();?>">
+                        <span class="fui-user"></span> <?=Account::getCurrent()->getLogin();?>
+                    </a>
+                </div>
+                <div class="action">
+                    <a href="/profile-<?=Account::getCurrent()->getId();?>">
+                        <span class="fui-gear"></span>
+                    </a>
+                </div>
+                <div class="action">
+                    <a href="/transition.php?act=exit">
+                        <span class="fui-power"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <? } else { ?>
+        <div class="container">
+            <div class="upper_menu">
+                <div class="logo">
+                    <a href="/"><span class="fui-radio-checked"></span> WebArena</a>
+                </div>
+                <nav class="navigate_menu">
+                    <ul>
+                        <li><a href="/">Лучшее за сегодня</a></li>
+                        <li><a href="/">Свежее</a></li>
+                    </ul>
+                </nav>
+                <div class="action" style="width: 100px;">
+                    <a href="/auth/">Войти</a>
+                </div>
+                <div class="action" style="width: 100px;">
+                    <a href="/join/">Регистрация</a>>
+                </div>
+            </div>
+        </div>
+    <? } ?>
 </header>
-<div class="content" style="padding-top: 20px;">
+<div class="content" style="padding-top: 10px;">
     <div class="container">
         <?=WebPage::gi()->get(WebPage::CONTENT);?>
     </div>

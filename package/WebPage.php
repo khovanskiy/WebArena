@@ -16,6 +16,9 @@ class WebPage
     {
     }
 
+    /**
+     * @return WebPage
+     */
     public static function gi()
     {
         if (self::$instance == null) {

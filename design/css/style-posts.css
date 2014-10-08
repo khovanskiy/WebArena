@@ -64,6 +64,16 @@
     overflow: hidden;
 }
 
+.posts_grid .post_cell .text {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    color: #333;
+    padding: 25px;
+    font-size: 1.4em;
+    line-height: 1.4em;
+}
+
 .posts_grid .post_cell .thumbnail {
     float: left;
     width: 50%;
@@ -80,10 +90,17 @@
 
 .posts_grid .post_cell .footer {
     height: 55px;
-    padding: 17px 25px 25px 25px;
+    padding: 7px 25px 5px 25px;
     font-size: 1.4em;
     line-height: 1.4em;
     background: #fff;
+}
+
+.posts_grid .post_cell .footer .author {
+}
+
+.posts_grid .post_cell .footer .time {
+    color: #a1a1a1;
 }
 
 .posts_grid .post_cell .footer a {
@@ -92,4 +109,79 @@
 
 .posts_grid .post_cell .footer a:hover {
     color: #358cce;
+}
+
+.post_page {
+    display: table;
+    background: #fff;
+    width: 100%;
+}
+
+.post_page article, .post_page aside {
+    width: auto;
+    vertical-align: top;
+}
+
+.post_page article {
+    display: table-cell;
+    padding: 25px;
+}
+
+.post_page article h1 {
+    font-size: 3em;
+    line-height: 1.5em;
+    font-weight: 200;
+    padding: 0 0 25px 0;
+}
+
+.post_page article h2 {
+    font-size: 2em;
+    line-height: 1.2em;
+    font-weight: 200;
+    padding: 25px 0;
+    color: #358cce;
+}
+
+.post_page article .thumbnail {
+    width: 100%;
+}
+
+.post_page article .thumbnail img {
+    width: 100%;
+}
+
+.post_page article .text {
+    color: #111;
+    font-size: 1.6em;
+    line-height: 1.6em;
+}
+
+.post_page aside {
+    display: table-cell;
+    width: 300px;
+    background: #474747;
+}
+
+.post_edit_page {
+    width: 100%;
+    background: #fff;
+    padding: 25px;
+}
+
+.post_edit_page .row {
+    overflow: auto;
+    padding: 25px 0;
+}
+
+.post_edit_page label {
+    display: block;
+    width: 100%;
+    font-size: 2em;
+    color: #1481b8;
+    padding: 15px 0;
+}
+
+.post_edit_page .title input {
+    width: 100%;
+    font-size: 1.5em;
 }

@@ -1,32 +1,31 @@
 <?
+import("package/PostStacker.php");
 /*
- * Micropost - 0
  * Post - 1
- * Video - 2
- * Image - 3
+ * Image - 2
+ * Video - 4
  */
 WebPage::gi()->set(WebPage::TITLE, "Ресурсы для разработчиков");
 WebPage::gi()->beginSet(WebPage::CONTENT);
 
-function buildGrid($rows, $offset, $count) {
 
-    if (count($rows) < $offset + $count) {
+function buildGrid($rows, $offset, $counts) {
+    $count = count($counts);
+    if ($count + $offset > count($rows)) {
         $count = count($rows) - $offset;
     }
     if ($count <= 0) {
         return 0;
     }
-    if ($count % 2 != 0 && $count != 1) {
-        $count--;
-    }
     ?>
     <div class="posts_grid clear-fix">
     <?
-    for ($i = 0; $i < $count; ++$i) {
+    for ($i = 0; $i < count($counts); ++$i) {
         $row = $rows[$offset + $i];
-        if ($count != 1) {
+
+        if ($counts[$i] != 4) {
             ?>
-            <div>
+            <div style="width: <?=($counts[$i] * 25);?>%">
                 <div class="post_cell">
                     <? if (!empty($row["thumbnail_url"])) { ?>
                         <div class="inner inner-background" style="background-image: url('<?=$row["thumbnail_url"];?>');">
@@ -39,14 +38,21 @@ function buildGrid($rows, $offset, $count) {
                                 <div class="title"><?=$row["title"];?></div>
                             </div>
                         </a>
-                        <div class="footer"><a href=""><?=$row["login"];?></a></div>
+                        <div class="footer">
+                            <div class="author">
+                                от <a href="/profile-<?=$row["user_id"];?>"><?=$row["login"];?></a>
+                            </div>
+                            <div class="time">
+                                <time datetime="<?=$row["post_creation_time"];?>"><?=decorateDatetime($row["post_creation_time"]);?></time>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <?
-        } else if ($count == 1) {
+        } else {
             ?>
-            <div>
+            <div style="width: <?=($counts[$i] * 25);?>%">
                 <div class="post_cell quad_cell">
                     <div class="inner" style="width: 50%">
                         <div class="header"></div>
@@ -55,7 +61,14 @@ function buildGrid($rows, $offset, $count) {
                                 <div class="title"><?=$row["title"];?></div>
                             </div>
                         </a>
-                        <div class="footer"><a href=""><?=$row["login"];?></a> <?=$row["post_creation_time"];?></div>
+                        <div class="footer">
+                            <div class="author">
+                                от <a href="/profile-<?=$row["user_id"];?>"><?=$row["login"];?></a>
+                            </div>
+                            <div class="time">
+                                <time datetime="<?=$row["post_creation_time"];?>"><?=decorateDatetime($row["post_creation_time"]);?></time>
+                            </div>
+                        </div>
                     </div>
                     <? if (!empty($row["content_url"])) { ?>
                         <? if ($row["content_type"] == 0) { ?>
@@ -84,16 +97,26 @@ function buildGrid($rows, $offset, $count) {
 }
 ?>
 <?
-$sth = Database::gi()->execute("select posts.*, posts.creation_time as post_creation_time, users.login from posts, users where posts.user_id =  users.user_id order by posts.creation_time desc");
 
+$sth = Database::gi()->execute("select posts.type, posts.*, posts.creation_time as post_creation_time, users.login from posts, users where posts.user_id =  users.user_id order by posts.creation_time desc");
+
+//$types = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
+//print_r($types);
 //$sth = Database::gi()->execute("select posts.*, posts.creation_time as post_creation_time, users.login, ((positive + 1.9208) / (positive + negative) - 1.96 * SQRT((positive * negative) / (positive + negative) + 0.9604) / (positive + negative)) / (1 + 3.8416 / (positive + negative)) AS ci_lower_bound from posts, users where posts.user_id =  users.user_id order by ci_lower_bound desc");
 
 $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+/*$offset = 0;
+$pattern = PostStacker::getInstance()->match($rows, $offset);
+var_dump($pattern);
+$offset += buildGrid($rows, $offset, $pattern);*/
+
 $offset = 0;
 $read_count = 0;
-while (($read_count = buildGrid($rows, $offset, 4)) > 0) {
+while (($read_count = buildGrid($rows, $offset, PostStacker::getInstance()->match($rows, $offset))) > 0) {
     $offset += $read_count;
 }
 ?>
+
 <?
 WebPage::gi()->endSet();

@@ -9,7 +9,7 @@ WebPage::gi()->set(WebPage::TITLE, "Ресурсы для разработчик
 WebPage::gi()->beginSet(WebPage::CONTENT);
 
 
-function buildGrid($rows, $offset, $counts) {
+function buildGrid(array &$rows, $offset, $counts) {
     $count = count($counts);
     if ($count + $offset > count($rows)) {
         $count = count($rows) - $offset;
@@ -106,6 +106,10 @@ $sth = Database::gi()->execute("select posts.type, posts.*, posts.creation_time 
 
 $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
 
+for ($i = 0; $i < count($rows); ++$i) {
+    echo $rows[$i]["type"];
+}
+
 /*$offset = 0;
 $pattern = PostStacker::getInstance()->match($rows, $offset);
 var_dump($pattern);
@@ -113,8 +117,11 @@ $offset += buildGrid($rows, $offset, $pattern);*/
 
 $offset = 0;
 $read_count = 0;
-while (($read_count = buildGrid($rows, $offset, PostStacker::getInstance()->match($rows, $offset))) > 0) {
+
+$pattern = PostStacker::getInstance()->match($rows, 0);
+while (($read_count = buildGrid($rows, $offset, $pattern)) > 0) {
     $offset += $read_count;
+    $pattern = PostStacker::getInstance()->match($rows, $offset);
 }
 ?>
 

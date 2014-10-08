@@ -1,9 +1,10 @@
 <?
+import("package/Log.php");
 
 class PostStacker
 {
     private static $instance = null;
-    const MAX_INT = 100;
+    const MAX_INT = 4;
 
     /**
      * @return PostStacker
@@ -92,17 +93,17 @@ class PostStacker
                     $commas++;
                     break;
                 case '(':
-                    $roundBracketBegin = $commas + 1;
+                    $roundBracketBegin = $commas;
                     break;
                 case ')':
                     array_push($shiftList, $roundBracketBegin);
-                    array_push($shiftList, $commas + 1);
+                    array_push($shiftList, $commas);
                     break;
                 case '{':
-                    $squareBracketBegin = $commas + 1;
+                    $squareBracketBegin = $commas;
                     break;
                 case '}':
-                    array_push($shiftList, $commas + 1);
+                    array_push($shiftList, $commas);
                     array_push($shiftList, $squareBracketBegin);
                     break;
             }
@@ -110,7 +111,7 @@ class PostStacker
 
         $temp = "";
         for ($i = 0; $i < strlen($input); $i++) {
-            if (!in_array($input[$i], array('[','(',')','{','}',']'))) {
+            if (!in_array($input[$i], array('[', '(', ')', '{', '}', ']'))) {
                 $temp .= $input[$i];
             }
         }
@@ -119,7 +120,7 @@ class PostStacker
 
         $stateNumber = 0;
         for ($i = 0; $i < count($strings); $i++) {
-            $state = &$this->states[$stateNumber];
+            $state = & $this->states[$stateNumber];
             $number = (int)trim($strings[$i]);
             if ($state[$number] == -1) {
                 $state[$number] = $this->addState();
@@ -136,7 +137,7 @@ class PostStacker
             $shift[$i] = $shiftList[$i];
         }
 
-        $this->shifts[$stateNumber] = &$shift;
+        $this->shifts[$stateNumber] = $shift;
         $this->answers[$stateNumber] = $answer;
 
         return $this->consistency;
@@ -153,7 +154,7 @@ class PostStacker
         $answerStateNumber = $stateNumber;
 
         for ($i = $offset; $i < count($mass); $i++) {
-            $state = &$this->states[$stateNumber];
+            $state = & $this->states[$stateNumber];
             if ($state[$mass[$i]["type"]] == -1) {
                 break;
             }
@@ -163,11 +164,11 @@ class PostStacker
             }
         }
 
-        $shift = &$this->shifts[$answerStateNumber];
+        $shift = & $this->shifts[$answerStateNumber];
 
         for ($j = 0; $j < count($shift) / 2; ++$j) {
-            $begin = $shift[2 * $j];
-            $end = $shift[2 * $j + 1];
+            $begin = $offset + $shift[2 * $j];
+            $end = $offset + $shift[2 * $j + 1];
             $tmp = $mass[$begin];
             if ($begin < $end) {
                 for ($k = $begin; $k < $end; ++$k) {
@@ -179,7 +180,41 @@ class PostStacker
                 }
             }
             $mass[$end] = $tmp;
+
         }
+
         return $this->answers[$answerStateNumber];
+    }
+
+    private function write(array &$mass, $key) {
+        echo "<ul>";
+        for ($i = 0; $i < count($mass) && $i < 5; ++$i) {
+            echo "<li>".$mass[$i][$key] . "</li>";
+        }
+        echo "</ul>";
+    }
+
+    public function moveRight(array &$array, $positions)
+    {
+        $size = count($array);
+        for ($i = 0; $i < $positions; $i++) {
+            $temp = $array[$size - 1];
+            for ($j = $size - 1; $j > 0; $j--) {
+                $array[$j] = $array[$j - 1];
+            }
+            $array[0] = $temp;
+        }
+    }
+
+    public function moveLeft(array &$array, $positions)
+    {
+        $size = count($array);
+        for ($i = $size; $i > $positions; --$i) {
+            $temp = $array[$size - 1];
+            for ($j = $size - 1; $j > 0; --$j) {
+                $array[$j] = $array[$j - 1];
+            }
+            $array[0] = $temp;
+        }
     }
 }

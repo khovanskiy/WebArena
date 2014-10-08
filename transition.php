@@ -30,6 +30,10 @@ switch (Request::get("act"))
                         $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text) values(?, ?, now(), ?, ?, ?)", array(Account::getCurrent()->getId(), 1, $title, $meta_text, $cached_text));
                         $webpage->redirect("/post-".Database::gi()->lastInsertId("post_id"));
                     } break;
+                    case 2:
+                    {
+
+                    } break;
                     case 4:
                     {
                         $meta_text = Request::post("meta_text", "");
@@ -39,12 +43,12 @@ switch (Request::get("act"))
 
                         $thumbnail_url = Request::post("thumbnail_url", "");
 
-                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text) values(?, ?, now(), ?, ?, ?)", array(Account::getCurrent()->getId(), 2, $title, $meta_text, $cached_text));
+                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, content_url) values(?, ?, now(), ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 4, $title, $meta_text, $cached_text, $content_url));
                         $webpage->redirect("/post-".Database::gi()->lastInsertId("post_id"));
                     } break;
                     default:
                     {
-
+                        $webpage->redirect("/add/");
                     } break;
                 }
             } else {

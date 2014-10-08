@@ -5,7 +5,7 @@ import("package/PostStacker.php");
  * Image - 2
  * Video - 4
  */
-WebPage::gi()->set(WebPage::TITLE, "Ресурсы для разработчиков");
+WebPage::gi()->set(WebPage::TITLE, "Лента - WebArena");
 WebPage::gi()->beginSet(WebPage::CONTENT);
 
 
@@ -96,6 +96,16 @@ function buildGrid(array &$rows, $offset, $counts) {
     return $count;
 }
 ?>
+<div class="posts_stream_page">
+    <div class="filter_bar">
+        <nav>
+            <ul>
+                <li></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
 <?
 
 $sth = Database::gi()->execute("select posts.type, posts.*, posts.creation_time as post_creation_time, users.login from posts, users where posts.user_id =  users.user_id order by posts.creation_time desc");
@@ -118,12 +128,13 @@ $offset += buildGrid($rows, $offset, $pattern);*/
 $offset = 0;
 $read_count = 0;
 
-$pattern = PostStacker::getInstance()->match($rows, 0);
+$pattern = PostStacker::getInstance()->match($rows, 0, 1);
 while (($read_count = buildGrid($rows, $offset, $pattern)) > 0) {
     $offset += $read_count;
-    $pattern = PostStacker::getInstance()->match($rows, $offset);
+    $pattern = PostStacker::getInstance()->match($rows, $offset, 1);
 }
 ?>
-
+</div>
+</div>
 <?
 WebPage::gi()->endSet();

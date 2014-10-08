@@ -17,10 +17,18 @@ class PostStacker
         return self::$instance;
     }
 
-    private $consistency = true;
+    //private $consistency = true;
     private $states = array();
     private $shifts = array();
     private $answers = array();
+    private $startStates = array();
+    private $consistency = array();
+
+    private function addStartState($version)
+    {
+        $this->startStates[$version] = $this->addState();
+        $this->consistency[$version] =  true;
+    }
 
     /**
      * @return int
@@ -42,44 +50,47 @@ class PostStacker
         $this->addState();
 
         $a1111 = array(1, 1, 1, 1);
+        $a121 = array(1, 2, 1);
         $a22 = array(2, 2);
         $a4 = array(4);
-        $this->addRule("1", $a4);
-        $this->addRule("1, 1", $a22);
-        $this->addRule("1, 2", $a22);
-        $this->addRule("1, 1, 1, (2, 1)", $a1111);
-        $this->addRule("{1, 1, 1, 4}, 1", $a4);
-        $this->addRule("{1, 1, 1, 4}, 2", $a4);
-        $this->addRule("1, 1, 1, 1", $a1111);
-        $this->addRule("1, 1, (2, 1, 1)", $a1111);
-        $this->addRule("1, (2, 1, 1, 1)", $a1111);
-        $this->addRule("{1, 1, 4}, 1, 1", $a4);
-        $this->addRule("{1, 4}, 1, 1, 1", $a4);
-        $this->addRule("{1, 4}, 1", $a4);
-        $this->addRule("{1, 4}, 2", $a4);
-        $this->addRule("2", $a4);
-        $this->addRule("2, 1", $a22);
-        $this->addRule("2, 2", $a22);
-        $this->addRule("{2, 4}, 1", $a4);
-        $this->addRule("{2, 4}, 2", $a4);
-        $this->addRule("4", $a4);
-        $this->addRule("4, 4", $a22);
+        $this->addRule("1", $a4, 1);
+        $this->addRule("1, 1", $a22, 1);
+        $this->addRule("1, 2", $a22, 1);
+        $this->addRule("1, 2, 1", $a121, 1);
+        $this->addRule("1, 1, 1, (2, 1)", $a1111, 1);
+        $this->addRule("{1, 1, 1, 4}, 1", $a4, 1);
+        $this->addRule("{1, 1, 1, 4}, 2", $a4, 1);
+        $this->addRule("1, 1, 1, 1", $a1111, 1);
+        $this->addRule("1, 1, (2, 1, 1)", $a1111, 1);
+        $this->addRule("1, (2, 1, 1, 1)", $a1111, 1);
+        $this->addRule("{1, 1, 4}, 1, 1", $a4, 1);
+        $this->addRule("{1, 4}, 1, 1, 1", $a4, 1);
+        $this->addRule("{1, 4}, 1", $a4, 1);
+        $this->addRule("{1, 4}, 2", $a4, 1);
+        $this->addRule("2", $a4, 1);
+        $this->addRule("2, 1", $a22, 1);
+        $this->addRule("2, 2", $a22, 1);
+        $this->addRule("{2, 4}, 1", $a4, 1);
+        $this->addRule("{2, 4}, 2", $a4, 1);
+        $this->addRule("4", $a4, 1);
+        $this->addRule("4, 4", $a22, 1);
     }
 
     /**
      * @return bool
      */
-    public function checkConsistency()
+    public function checkConsistency($version)
     {
-        return $this->consistency;
+        return $this->consistency[$version];
     }
 
     /**
      * @param string $input
      * @param array $answer
+     * @param int $version
      * @return bool
      */
-    public function addRule($input, array $answer)
+    public function addRule($input, array $answer, $version)
     {
         $commas = 0;
         $roundBracketBegin = 0;
@@ -117,8 +128,10 @@ class PostStacker
         }
         $input = $temp;
         $strings = mb_split(",", $input);
-
-        $stateNumber = 0;
+        if ($this->startStates[$version] == null) {
+            $this->addStartState($version);
+        }
+        $stateNumber = $this->startStates[$version];
         for ($i = 0; $i < count($strings); $i++) {
             $state = & $this->states[$stateNumber];
             $number = (int)trim($strings[$i]);
@@ -140,17 +153,18 @@ class PostStacker
         $this->shifts[$stateNumber] = $shift;
         $this->answers[$stateNumber] = $answer;
 
-        return $this->consistency;
+        return $this->consistency[$version];
     }
 
     /**
      * @param array $mass
      * @param int $offset
+     * @param int $version
      * @return array
      */
-    public function match(array &$mass, $offset)
+    public function match(array &$mass, $offset, $version)
     {
-        $stateNumber = 0;
+        $stateNumber = $this->startStates[$version];
         $answerStateNumber = $stateNumber;
 
         for ($i = $offset; $i < count($mass); $i++) {

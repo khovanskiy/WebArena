@@ -7,13 +7,11 @@
 
     <link rel="stylesheet" href="../design/css/style.css" type="text/css">
     <link rel="stylesheet" href="../design/css/style-ui.css" type="text/css">
-    <link rel="stylesheet" href="../design/css/jq-ui.css" type="text/css">
 
     <link rel="icon" href="../design/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../design/images/favicon.ico" type="image/x-icon">
 
     <script type="text/javascript"  src="http://yandex.st/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript"  src="../js/core.js" defer="defer"></script>
 </head>
 <body>
 <? if (!Account::isAuth()) { ?>
@@ -37,7 +35,7 @@
                     </ul>
                 </nav>
                 <div class="add_post_action">
-                    <a href="/add/"><span class="fui-new"></span> Добавить пост</a>
+                    <a href="/add/"><span class="fui-plus"></span> Добавить пост</a>
                 </div>
                 <div class="profile">
                     <a href="/profile-<?=Account::getCurrent()->getId();?>">
@@ -78,10 +76,8 @@
         </div>
     <? } ?>
 </header>
-<div class="content" style="padding-top: 10px;">
-    <div class="container">
-        <?=WebPage::gi()->get(WebPage::CONTENT);?>
-    </div>
+<div class="content">
+    <?=WebPage::gi()->get(WebPage::CONTENT);?>
 </div>
 <footer class="clear-fix">
     <div class="container">

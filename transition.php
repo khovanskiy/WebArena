@@ -41,9 +41,11 @@ switch (Request::get("act"))
 
                         $content_url = Request::post("content_url", "");
 
-                        $thumbnail_url = Request::post("thumbnail_url", "");
+                        $video = youtube($content_url);
+                        $content_url = $video["content_url"];
+                        $thumbnail_url = $video["thumbnail_url"];
 
-                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, content_url) values(?, ?, now(), ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 4, $title, $meta_text, $cached_text, $content_url));
+                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, thumbnail_url, content_url) values(?, ?, now(), ?, ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 4, $title, $meta_text, $cached_text, $thumbnail_url, $content_url));
                         $webpage->redirect("/post-".Database::gi()->lastInsertId("post_id"));
                     } break;
                     default:

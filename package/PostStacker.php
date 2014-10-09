@@ -5,6 +5,10 @@ class PostStacker
 {
     private static $instance = null;
     const MAX_INT = 4;
+    const MAX_DENSITY_RULES = 0;
+    const TO_121_RULES = 1;
+    const TO_22_RULES = 2;
+    const TO_4_RULES = 3;
 
     /**
      * @return PostStacker
@@ -53,7 +57,24 @@ class PostStacker
         $a121 = array(1, 2, 1);
         $a22 = array(2, 2);
         $a4 = array(4);
-        $this->addRule("1", $a4, 1);
+
+        /*$this->addRule("1, 1, 1, {4, 1}", $a1111, 1);
+        $this->addRule("1, 1, 1, {4, 2}", $a1111, 1);
+        $this->addRule("1, 2, 1", $a121, 1);
+        $this->addRule("1, {1, 2}, 1", $a121, 1);
+        $this->addRule("(1, 4), 1", $a4, 1);
+        $this->addRule("(1, 4), 2", $a4, 1);
+        $this->addRule("1, 4, (4, 2)", $a121, 1);
+        $this->addRule("4, 4", $a22, 1);
+        $this->addRule("2, 1, (1, 2)", $a4, 1);
+        $this->addRule("2, 1, 2, 1", $a22, 1);
+        $this->addRule("2, 2, 1, 1", $a22, 1);
+        $this->addRule("2, 2, (2, 1)", $a22, 1);
+        $this->addRule("4, 1, 2", $a4, 1);
+        $this->addRule("4, 2, 1", $a4, 1);
+        $this->addRule("4, 1, 1", $a4, 1);*/
+
+        /*$this->addRule("1", $a4, 1);
         $this->addRule("1, 1", $a22, 1);
         $this->addRule("1, 2", $a22, 1);
         $this->addRule("1, 2, 1", $a121, 1);
@@ -73,10 +94,114 @@ class PostStacker
         $this->addRule("{2, 4}, 1", $a4, 1);
         $this->addRule("{2, 4}, 2", $a4, 1);
         $this->addRule("4", $a4, 1);
-        $this->addRule("4, 4", $a22, 1);
+        $this->addRule("4, 4", $a22, 1);*/
+
+
+        $this->addRule("1", $a4, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 1", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 1, 1, 1", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("1, {1, 1, 2}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 1, 1, (2, 1)", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 1, 1, (4, 1)", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("1, (1, 2)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 1, (2, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 1, (4, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("1, {1, 4, 2}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2, 1", $a121, self::MAX_DENSITY_RULES);
+//$this->addRule("1, (2, 1, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2, (2, 1)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2, {2, 2, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2, {2, 4, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2, (4, 1)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2, {4, 2, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, 2, {4, 4, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, (4, 1)", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("(1, 4), 1, 1, 1", $a4, self::MAX_DENSITY_RULES);
+        $this->addRule("1, {(4, 1), 2}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("1, (4, 2)", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("1, (4, 2, 1)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("2", $a4, self::MAX_DENSITY_RULES);
+        $this->addRule("2, 1", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("(2, 1), 1", $a121, self::MAX_DENSITY_RULES);
+//$this->addRule("(2, 1, 1, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("(2, 1), (2, 1)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("(2, 1), {2, 2, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("(2, 1), {2, 4, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("(2, 1), (4, 1)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("(2, 1), {4, 2, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("(2, 1), {4, 4, 1}", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("2, 2", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("{2, 2, (1}, 1)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("2, (4, 1)", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("{2, 4, (1}, 1)", $a121, self::MAX_DENSITY_RULES);
+        $this->addRule("2, (4, 2)", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("4", $a4, self::MAX_DENSITY_RULES);
+//$this->addRule("(4, 1, 1, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+        $this->addRule("4, (1, 4)", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("4, (2, 4)", $a22, self::MAX_DENSITY_RULES);
+        $this->addRule("4, 4", $a22, self::MAX_DENSITY_RULES);
+        //System.out.println("Max density rules consistency = " + postStacker.checkConsistency(self::MAX_DENSITY_RULES));
+        $this->addRule("1", $a4, self::TO_121_RULES);
+        $this->addRule("1, 1", $a22, self::TO_121_RULES);
+        $this->addRule("1, {1, 1, 2}", $a121, self::TO_121_RULES);
+        $this->addRule("1, (1, 2)", $a121, self::TO_121_RULES);
+        $this->addRule("1, {1, 4, 2}", $a121, self::TO_121_RULES);
+        $this->addRule("1, 2", $a22, self::TO_121_RULES);
+        $this->addRule("1, 2, 1", $a121, self::TO_121_RULES);
+        $this->addRule("1, 2, (2, 1)", $a121, self::TO_121_RULES);
+        $this->addRule("1, 2, {2, 2, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("1, 2, {2, 4, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("1, 2, (4, 1)", $a121, self::TO_121_RULES);
+        $this->addRule("1, 2, {4, 2, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("1, 2, {4, 4, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("1, (4, 1)", $a22, self::TO_121_RULES);
+        $this->addRule("1, {(4, 1), 2}", $a121, self::TO_121_RULES);
+        $this->addRule("1, (4, 2)", $a22, self::TO_121_RULES);
+        $this->addRule("1, (4, 2, 1)", $a121, self::TO_121_RULES);
+        $this->addRule("2", $a4, self::TO_121_RULES);
+        $this->addRule("2, 1", $a22, self::TO_121_RULES);
+        $this->addRule("(2, 1), 1", $a121, self::TO_121_RULES);
+        $this->addRule("(2, 1), (2, 1)", $a121, self::TO_121_RULES);
+        $this->addRule("(2, 1), {2, 2, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("(2, 1), {2, 4, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("(2, 1), (4, 1)", $a121, self::TO_121_RULES);
+        $this->addRule("(2, 1), {4, 2, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("(2, 1), {4, 4, 1}", $a121, self::TO_121_RULES);
+        $this->addRule("2, 2", $a22, self::TO_121_RULES);
+        $this->addRule("{2, 2, (1}, 1)", $a121, self::TO_121_RULES);
+        $this->addRule("2, (4, 1)", $a22, self::TO_121_RULES);
+        $this->addRule("{2, 4, (1}, 1)", $a121, self::TO_121_RULES);
+        $this->addRule("2, (4, 2)", $a22, self::TO_121_RULES);
+        $this->addRule("4", $a4, self::TO_121_RULES);
+        $this->addRule("4, (1, 4)", $a22, self::TO_121_RULES);
+        $this->addRule("4, (2, 4)", $a22, self::TO_121_RULES);
+        $this->addRule("4, 4", $a22, self::TO_121_RULES);
+        //System.out.println("To 121 rules consistency = " + postStacker.checkConsistency(self::TO_121_RULES));
+        $this->addRule("1", $a4, self::TO_22_RULES);
+        $this->addRule("1, 1", $a22, self::TO_22_RULES);
+        $this->addRule("1, 2", $a22, self::TO_22_RULES);
+        $this->addRule("1, (4, 1)", $a22, self::TO_22_RULES);
+        $this->addRule("1, (4, 2)", $a22, self::TO_22_RULES);
+        $this->addRule("2", $a4, self::TO_22_RULES);
+        $this->addRule("2, 1", $a22, self::TO_22_RULES);
+        $this->addRule("2, 2", $a22, self::TO_22_RULES);
+        $this->addRule("2, (4, 1)", $a22, self::TO_22_RULES);
+        $this->addRule("2, (4, 2)", $a22, self::TO_22_RULES);
+        $this->addRule("4", $a4, self::TO_22_RULES);
+        $this->addRule("4, (1, 4)", $a22, self::TO_22_RULES);
+        $this->addRule("4, (2, 4)", $a22, self::TO_22_RULES);
+        $this->addRule("4, 4", $a22, self::TO_22_RULES);
+        //System.out.println("To 22 rules consistency = " + postStacker.checkConsistency(self::TO_22_RULES));
+        $this->addRule("1", $a4, self::TO_4_RULES);
+        $this->addRule("2", $a4, self::TO_4_RULES);
+        $this->addRule("4", $a4, self::TO_4_RULES);
+        //System.out.println("To 4 rules consistency = " + postStacker.checkConsistency(self::TO_4_RULES));
+
     }
 
     /**
+     * @param int $version
      * @return bool
      */
     public function checkConsistency($version)
@@ -178,6 +303,10 @@ class PostStacker
             }
         }
 
+        if ($this->answers[$answerStateNumber] == null) {
+            return array(1,1,1,1);
+        }
+
         $shift = & $this->shifts[$answerStateNumber];
 
         for ($j = 0; $j < count($shift) / 2; ++$j) {
@@ -200,13 +329,13 @@ class PostStacker
         return $this->answers[$answerStateNumber];
     }
 
-    private function write(array &$mass, $key) {
+    /*private function write(array &$mass, $key) {
         echo "<ul>";
         for ($i = 0; $i < count($mass) && $i < 5; ++$i) {
             echo "<li>".$mass[$i][$key] . "</li>";
         }
         echo "</ul>";
-    }
+    }*/
 
     public function moveRight(array &$array, $positions)
     {

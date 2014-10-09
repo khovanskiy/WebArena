@@ -61,115 +61,28 @@ function decorateDatetime($datetime) {
     return langsnobRu($diff, "дней", "день", "дня", "") . " назад";;
 }
 
-function func($array, $offset) {
-    if ($offset >= count($array)) {
-        return array(0);
-    } else {
-        $a4 = array(4);
-        $a22 = array(2, 2);
-        $a1111 = array(1, 1, 1, 1);
+function youtube($url) {
+    $connection = curl_init();
+    parse_str(parse_url($url, PHP_URL_QUERY ), $url_vars);
 
-        switch($array[$offset]["type"]) {
-            case 1:
-                if ($offset == count($array) - 1) return $a4;
-                    switch ($array[$offset + 1]["type"]) {
-                        case 1:
-                            if ($offset == count($array) - 2) return $a22;
-                            switch ($array[$offset + 2]["type"]) {
-                                case 1:
-                                    if ($offset == count($array) - 3) return $a22;
-                                    switch ($array[$offset + 3]["type"]) {
-                                        case 1:
-                                            return $a1111;
-                                        case 2:
-                                            if ($offset == count($array) - 4) return $a22;
-                                            if ($array[$offset + 4]["type"] == 1) {
-                                                $tmp = $array[$offset + 3];
-                                                $array[$offset + 3] = $array[$offset + 4];
-                                                $array[$offset + 4] = $tmp;
-                                                return $a1111;
-                                            } else {
-                                                return $a22;
-                                            }
-                                        case 4:
-                                            if ($offset == count($array) - 4) return $a22;
-                                            if ($array[$offset + 4]["type"] != 4) {
-                                                $tmp = $array[$offset + 3];
-                                                $array[$offset + 3] = $array[$offset + 2];
-                                                $array[$offset + 2] = $array[$offset + 1];
-                                                $array[$offset + 1] = $array[$offset];
-                                                $array[$offset] = $tmp;
-                                                return $a4;
-                                            } else {
-                                                return $a22;
-                                            }
-                                    }
-                                case 2:
-                                case 4:
-                                    if ($offset < count($array) - 4 && $array[$offset + 3]["type"] == 1 && $array[$offset + 4]["type"] == 1) {
-                                        $tmp = $array[$offset + 2];
-                                        $array[$offset + 2] = $array[$offset + 3];
-                                        $array[$offset + 3] = $array[$offset + 4];
-                                        $array[$offset + 4] = $tmp;
-                                        return $a1111;
-                                    } else {
-                                        return $a22;
-                                    }
-                            }
-                            break;
-                        case 2:
-                            return a22;
-                        case 4:
-                            if ($offset == count($array) - 2) return $a4;
-                            if ($array[$offset + 2]["type"] != 4) {
-                                $tmp = $array[$offset];
-                                $array[$offset] = $array[$offset + 1];
-                                $array[$offset + 1] = $tmp;
-                            }
-                            return $a4;
-                    }
-                case 2:
-                    if ($offset == count($array) - 1) return $a4;
-                    switch ($array[$offset + 1]["type"]) {
-                        case 1:
-                        case 2:
-                            return $a22;
-                        case 4:
-                            if ($offset == count($array) - 2) return $a4;
-                            if ($array[$offset + 2]["type"] != 4) {
-                                $tmp = $array[$offset];
-                                $array[$offset] = $array[$offset + 1];
-                                $array[$offset + 1] = $tmp;
-                            }
-                            return $a4;
-                    }
-                    break;
-                case 4:
-                    if ($offset == count($array) - 1) return $a4;
-                    switch ((int)$array[$offset + 1]["type"]) {
-                        case 1:
-                        case 2:
-                            echo "2A=4";
-                            return $a4;
-                        case 4:
-                        {
-                            if ($offset == count($array) - 2) {
-                                return $a4;
-                            }
-                            switch ($array[$offset + 2]["type"]) {
-                                case 1:
-                                case 2:
-                                    $tmp = $array[$offset + 1];
-                                    $array[$offset + 1] = $array[$offset + 2];
-                                    $array[$offset + 2] = $tmp;
-                                    return $a4;
-                                case 4:
-                                    return $a22;
-                            }
-                        } break;
-                    }
-                    break;
-            }
-        }
-    return null;
+    $video_id = $url_vars["v"];
+
+    $url = sprintf("http://www.youtube.com/oembed?url=%s&format=json", urlencode($url));
+    curl_setopt($connection,CURLOPT_URL, $url);
+    curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($connection, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Accept: application/json'
+    ));
+
+    $json = curl_exec($connection);
+    curl_close($connection);
+
+    $data = json_decode($json, true);
+
+    $result = array();
+    $result["content_url"] = $video_id;
+    $result["thumbnail_url"] = $data["thumbnail_url"];
+
+    return $result;
 }

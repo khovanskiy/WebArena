@@ -13,6 +13,13 @@ function buildGrid(array &$rows, $offset, $counts) {
     $count = count($counts);
     if ($count + $offset > count($rows)) {
         $count = count($rows) - $offset;
+        if ($count == 3) {
+            $counts = array(1, 2, 1);
+        } else if ($count == 2) {
+            $counts = array(2, 2);
+        } else if ($count == 1) {
+            $counts = array(4);
+        }
     }
     if ($count <= 0) {
         return 0;
@@ -20,7 +27,7 @@ function buildGrid(array &$rows, $offset, $counts) {
     ?>
     <div class="posts_grid clear-fix">
     <?
-    for ($i = 0; $i < count($counts); ++$i) {
+    for ($i = 0; $i < $count; ++$i) {
         $row = $rows[$offset + $i];
 
         if ($counts[$i] != 4) {
@@ -73,7 +80,7 @@ function buildGrid(array &$rows, $offset, $counts) {
                     <? if (!empty($row["content_url"])) { ?>
                         <? if ($row["content_type"] == 0) { ?>
                             <div class="video">
-                                <iframe width="100%" height="100%" src="//www.youtube-nocookie.com/embed/<?=$row["content_url"];?>" frameborder="0" allowfullscreen></iframe>
+                                <iframe width="100%" height="100%" src="//www.youtube-nocookie.com/embed/<?=$row["content_url"];?>?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                             </div>
                         <? } else if ($row["content_type"] == 1) {?>
                             <div class="video">
@@ -117,21 +124,49 @@ $sth = Database::gi()->execute("select posts.type, posts.*, posts.creation_time 
 $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 for ($i = 0; $i < count($rows); ++$i) {
-    echo $rows[$i]["type"];
+    //echo $rows[$i]["type"];
 }
 
-/*$offset = 0;
-$pattern = PostStacker::getInstance()->match($rows, $offset);
-var_dump($pattern);
-$offset += buildGrid($rows, $offset, $pattern);*/
+function densityUp(array &$density, $pattern) {
+    switch (count($pattern)) {
+        case 1:
+        {
+            $density[PostStacker::TO_4_RULES]++;
+        } break;
+        case 2:
+        {
+            $density[PostStacker::TO_22_RULES]++;
+        } break;
+        case 3:
+        {
+            $density[PostStacker::TO_121_RULES]++;
+        } break;
+        case 4:
+        {
+            $density[PostStacker::MAX_DENSITY_RULES]++;
+        } break;
+    }
+}
 
 $offset = 0;
 $read_count = 0;
 
-$pattern = PostStacker::getInstance()->match($rows, 0, 1);
+$density = array(0, 0, 0, 0);
+$pattern = PostStacker::getInstance()->match($rows, 0, 0);
+densityUp($density, $pattern);
 while (($read_count = buildGrid($rows, $offset, $pattern)) > 0) {
     $offset += $read_count;
-    $pattern = PostStacker::getInstance()->match($rows, $offset, 1);
+
+    $min = $density[0];
+    $current_density = 0;
+    for ($i = 0; $i < count($density); ++$i) {
+        if ($min > $density[$i]) {
+            $min = $density[$i];
+            $current_density = $i;
+        }
+    }
+    $pattern = PostStacker::getInstance()->match($rows, $offset, $current_density);
+    densityUp($density, $pattern);
 }
 ?>
 </div>

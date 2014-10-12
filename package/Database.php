@@ -27,7 +27,7 @@ class Database
      * @param array $params
      * @return PDOStatement
      */
-    public function execute($query, $params = array())
+    public function execute($query, array $params = array())
     {
         if (isset(self::$cache[$query])) {
             $sth = self::$cache[$query];

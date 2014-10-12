@@ -178,6 +178,18 @@
     line-height: 1.6em;
 }
 
+.post_page article .text ul {
+    padding: 0 0 10px 25px;
+}
+
+.post_page article .text p {
+    margin: 0 0 15px 0;
+}
+
+p + ul {
+    margin-top: -10px;
+}
+
 .post_page aside {
     display: table-cell;
     width: 300px;

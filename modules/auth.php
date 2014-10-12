@@ -1,5 +1,8 @@
 <?
-WebPage::gi()->set(WebPage::TITLE, "Ресурсы для разработчиков");
+if (Account::isAuth()) {
+    WebPage::gi()->redirect("/");
+}
+WebPage::gi()->set(WebPage::TITLE, "Авторизация");
 WebPage::gi()->beginSet(WebPage::CONTENT);
 ?>
 <div class="container">

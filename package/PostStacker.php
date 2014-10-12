@@ -109,7 +109,7 @@ class PostStacker
         $this->addRule("1, {1, 4, 2}", $a121, self::MAX_DENSITY_RULES);
         $this->addRule("1, 2", $a22, self::MAX_DENSITY_RULES);
         $this->addRule("1, 2, 1", $a121, self::MAX_DENSITY_RULES);
-//$this->addRule("1, (2, 1, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+
         $this->addRule("1, 2, (2, 1)", $a121, self::MAX_DENSITY_RULES);
         $this->addRule("1, 2, {2, 2, 1}", $a121, self::MAX_DENSITY_RULES);
         $this->addRule("1, 2, {2, 4, 1}", $a121, self::MAX_DENSITY_RULES);
@@ -124,7 +124,7 @@ class PostStacker
         $this->addRule("2", $a4, self::MAX_DENSITY_RULES);
         $this->addRule("2, 1", $a22, self::MAX_DENSITY_RULES);
         $this->addRule("(2, 1), 1", $a121, self::MAX_DENSITY_RULES);
-//$this->addRule("(2, 1, 1, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+
         $this->addRule("(2, 1), (2, 1)", $a121, self::MAX_DENSITY_RULES);
         $this->addRule("(2, 1), {2, 2, 1}", $a121, self::MAX_DENSITY_RULES);
         $this->addRule("(2, 1), {2, 4, 1}", $a121, self::MAX_DENSITY_RULES);
@@ -137,11 +137,11 @@ class PostStacker
         $this->addRule("{2, 4, (1}, 1)", $a121, self::MAX_DENSITY_RULES);
         $this->addRule("2, (4, 2)", $a22, self::MAX_DENSITY_RULES);
         $this->addRule("4", $a4, self::MAX_DENSITY_RULES);
-//$this->addRule("(4, 1, 1, 1, 1)", $a1111, self::MAX_DENSITY_RULES);
+
         $this->addRule("4, (1, 4)", $a22, self::MAX_DENSITY_RULES);
         $this->addRule("4, (2, 4)", $a22, self::MAX_DENSITY_RULES);
         $this->addRule("4, 4", $a22, self::MAX_DENSITY_RULES);
-        //System.out.println("Max density rules consistency = " + postStacker.checkConsistency(self::MAX_DENSITY_RULES));
+
         $this->addRule("1", $a4, self::TO_121_RULES);
         $this->addRule("1, 1", $a22, self::TO_121_RULES);
         $this->addRule("1, {1, 1, 2}", $a121, self::TO_121_RULES);
@@ -177,7 +177,7 @@ class PostStacker
         $this->addRule("4, (1, 4)", $a22, self::TO_121_RULES);
         $this->addRule("4, (2, 4)", $a22, self::TO_121_RULES);
         $this->addRule("4, 4", $a22, self::TO_121_RULES);
-        //System.out.println("To 121 rules consistency = " + postStacker.checkConsistency(self::TO_121_RULES));
+
         $this->addRule("1", $a4, self::TO_22_RULES);
         $this->addRule("1, 1", $a22, self::TO_22_RULES);
         $this->addRule("1, 2", $a22, self::TO_22_RULES);
@@ -192,11 +192,10 @@ class PostStacker
         $this->addRule("4, (1, 4)", $a22, self::TO_22_RULES);
         $this->addRule("4, (2, 4)", $a22, self::TO_22_RULES);
         $this->addRule("4, 4", $a22, self::TO_22_RULES);
-        //System.out.println("To 22 rules consistency = " + postStacker.checkConsistency(self::TO_22_RULES));
+
         $this->addRule("1", $a4, self::TO_4_RULES);
         $this->addRule("2", $a4, self::TO_4_RULES);
         $this->addRule("4", $a4, self::TO_4_RULES);
-        //System.out.println("To 4 rules consistency = " + postStacker.checkConsistency(self::TO_4_RULES));
 
     }
 

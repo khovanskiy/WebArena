@@ -37,21 +37,73 @@ h3
 }
 
 .primary-message {
-    background: #d95626;
-    color: #fff;
+    background: #F3B100;
+    color: #000;
+    text-shadow: 0 1px #FCDA87;
+    font-weight: bold;
     font-size: 1.4em;;
     min-height: 40px;
     line-height: 40px;
 }
 
 .primary-message a {
-    color: #fff;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .add_post_action {
     padding: 5px 0 0 0;
     width: 180px !important;
+}
+
+button, a.button {
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    padding: 10px 25px;
+    line-height: 1.4em;
+    font-size: 1.4em;
+    color: #000;
+    text-shadow: 0 1px #FCDA87;
+    border: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #febf4d;
+}
+
+button:hover, a.button:hover {
+    background-color: #F3B100;
+    color: black;
+}
+
+.default_page {
+    width: 100%;
+    background: #fff;
+    overflow: auto;
+}
+
+.default_page h2 {
+    color: #358cce;
+    font-size: 3em;
+    line-height: 3em;
+    padding: 0 0 10px 0;
+}
+
+label {
+    display: block;
+    width: 100%;
+    font-size: 2em;
+    padding: 0 0 10px 0;
+    color: #343131;
+}
+
+input, textarea {
+    border: 1px #d9d9d9 solid;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    z-index: 1;
+    font-size: 1.4em;
 }
 
 .add_post_action a {
@@ -203,20 +255,6 @@ div.list-button a:hover
     color: #FFF;
 }
 
-button
-{
-    padding: 5px 10px;
-    vertical-align: middle;
-    border: none;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    background: #ffa945;
-    font-family: 'Cuprum';
-    font-size: 13px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
 div.form
 {
     overflow: auto;
@@ -226,7 +264,7 @@ div.form .row
 {
     width: 100%;
     overflow: auto;
-    padding: 5px 0px;
+    padding: 5px 0 20px 0;
 }
 
 div.form .row > .input

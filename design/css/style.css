@@ -146,8 +146,15 @@ header {
     text-align: center;
 }
 
+.container {
+    margin: 0 auto;
+    width: 1000px;
+    overflow: auto;
+}
+
 body > .content {
     background: #f0f0f0;
+    padding-bottom: 10px;
 }
 
 body > .content > .container {
@@ -174,15 +181,15 @@ body > .content > .container {
     padding: 15px 0px;
 }
 
-.container {
-    margin: 0 auto;
-    width: 1000px;
-}
-
 footer {
-    background: #fff;
     padding: 15px 0;
     font-size: 1.4em;
+    overflow: auto;
+    height: 100px;
+}
+
+footer .container {
+    height: 100%;
 }
 
 footer nav li {

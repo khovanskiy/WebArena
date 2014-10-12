@@ -10,10 +10,16 @@ include "package/Database.php";
 include "package/WebPage.php";
 include "package/Account.php";
 
+import("package/OEmbedParser.php");
+
 $webpage = Webpage::gi();
 
 switch (Request::get("act"))
 {
+    case "photo":
+    {
+        phpinfo();
+    } break;
     case "add-post":
     {
         if (Account::isAuth()) {
@@ -36,16 +42,16 @@ switch (Request::get("act"))
                     } break;
                     case 4:
                     {
+                        $parser = new OEmbedParser();
+
                         $meta_text = Request::post("meta_text", "");
                         $cached_text = $meta_text;
 
                         $content_url = Request::post("content_url", "");
 
-                        $video = youtube($content_url);
-                        $content_url = $video["content_url"];
-                        $thumbnail_url = $video["thumbnail_url"];
+                        $video = $parser->parse($content_url);
 
-                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, thumbnail_url, content_url) values(?, ?, now(), ?, ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 4, $title, $meta_text, $cached_text, $thumbnail_url, $content_url));
+                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, thumbnail_url, content_url, content_type) values(?, ?, now(), ?, ?, ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 4, $title, $meta_text, $cached_text, $video->thumbnail_url, $video->content_id, $video->content_type));
                         $webpage->redirect("/post-".Database::gi()->lastInsertId("post_id"));
                     } break;
                     default:

@@ -30,12 +30,13 @@
                 </div>
                 <nav class="navigate_menu">
                     <ul>
-                        <li><a href="/">Лучшее за сегодня</a></li>
-                        <li><a href="/">Свежее</a></li>
+                        <li><a href="/">Лучшие посты</a></li>
+                        <li><a href="/">Лучшие теги</a></li>
+                        <li><a href="/">Сообщество</a></li>
                     </ul>
                 </nav>
-                <div class="add_post_action">
-                    <a href="/add/"><span class="fui-plus"></span> Добавить пост</a>
+                <div class="action">
+                    <a href="/add/" class="button"><span class="fui-plus"></span> Добавить пост</a>
                 </div>
                 <div class="profile">
                     <a href="/profile-<?=Account::getCurrent()->getId();?>">
@@ -79,7 +80,7 @@
 <div class="content">
     <?=WebPage::gi()->get(WebPage::CONTENT);?>
 </div>
-<footer class="clear-fix">
+<footer>
     <div class="container">
         <nav class="fl_l">
             <ul>

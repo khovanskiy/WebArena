@@ -15,7 +15,11 @@ $current_post = $sth->fetch(PDO::FETCH_ASSOC);
                     </div>
                 <? } else if ($current_post["content_type"] == 1) {?>
                     <div class="video">
-                        <iframe src="//player.vimeo.com/video/<?=$current_post["content_url"];?>" width="100%" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <iframe src="//player.vimeo.com/video/<?=$current_post["content_url"];?>" width="100%" height="400px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                <? } else if ($current_post["content_type"] == 2) { ?>
+                    <div class="video">
+                        <iframe width="100%" height="400px" src="//coub.com/embed/<?=$current_post["content_url"];?>?muted=false&autostart=false&originalSize=false&hideTopBar=true&startWithHD=false" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
                     </div>
                 <? } ?>
             <? } else if (!empty($current_post["thumbnail_url"])) { ?>

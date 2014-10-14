@@ -62,6 +62,28 @@ function decorateDatetime($datetime)
     return langsnobRu($diff, "дней", "день", "дня", "") . " назад";
 }
 
+/**
+ * @param string $text
+ * @param int $max_length
+ * @return string
+ */
+function decorateLength($text, $max_length = 200)
+{
+    $text = strip_tags(trim($text));
+    if (mb_strlen($text) > $max_length)
+    {
+        $mas = preg_split("/[\.\?\!]/", $text);
+        $text = "";
+        $i = 0;
+        $len = count($mas);
+        while (mb_strlen($text) < $max_length && $i < $len)
+        {
+            $text .= $mas[$i++].". ";
+        }
+    }
+    return $text;
+}
+
 function buildGrid(array &$rows, $offset, $counts)
 {
     $count = count($counts);
@@ -160,7 +182,16 @@ if ($counts[$i] != 4) {
             <? } else if (!empty($row["thumbnail_url"])) { ?>
                 <div class="thumbnail" style="background-image: url('<?= $row["thumbnail_url"]; ?>');"></div>
             <? } else { ?>
-                <div class="text"><?= $row["cached_text"]; ?></div>
+                <div class="text-preview">
+                    <div class="text">
+                        <div style="width: 100%; height: 100%; overflow: hidden;">
+                            <?=decorateLength($row["cached_text"], 1500); ?>
+                        </div>
+                    </div>
+                    <div class="shadow">
+
+                    </div>
+                </div>
             <? } ?>
         </div>
     </div>

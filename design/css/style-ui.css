@@ -96,6 +96,8 @@ button:hover, a.button:hover {
     width: 100%;
     background: #fff;
     overflow: auto;
+    margin-top: 10px;
+    border-top: 10px solid #358cce;
 }
 
 .default_page h2 {

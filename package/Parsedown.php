@@ -1068,9 +1068,10 @@ class Parsedown
                     'name' => 'a',
                     'text' => $url,
                     'attributes' => array(
-                        'href' => $url,
-                    ),
-                ),
+                        'href' => "/proxy/?url=".$url,
+                        'target' => "_blank"
+                    )
+                )
             );
         }
     }

@@ -13,6 +13,36 @@ import("package/OEmbedParser.php");
 
 switch (Request::get("act"))
 {
+    case "vote-post":
+    {
+        $response = array();
+        if (Account::isAuth()) {
+            $post_id = Request::post("post_id");
+            $sth = Database::gi()->execute("select post_id from posts where post_id = ?", array($post_id));
+            if ($sth->rowCount() > 0) {
+                $vote_type = Request::post("vote_type");
+                $sth = Database::gi()->execute("select user_id from users_votes where user_id = ? and post_id = ?", array(Account::getCurrent()->getId(), $post_id));
+                if ($sth->rowCount() == 0) {
+                    if ($vote_type == "up") {
+                        Database::gi()->execute("update posts set positive = positive + 1 where post_id = ?", array($post_id));
+                        Database::gi()->execute("insert into users_votes(user_id, post_id, direction) values(?, ?, ?)", array(Account::getCurrent()->getId(), $post_id, 1));
+                        $response["vote_type"] = "up";
+                    } else if ($vote_type == "down") {
+                        Database::gi()->execute("update posts set negative = negative + 1 where post_id = ?", array($post_id));
+                        Database::gi()->execute("insert into users_votes(user_id, post_id, direction) values(?, ?, ?)", array(Account::getCurrent()->getId(), $post_id, -1));
+                        $response["vote_type"] = "down";
+                    } else {
+
+                    }
+                } else {
+
+                }
+            }
+        } else {
+
+        }
+        echo json_encode($response);
+    } break;
     case "parse-video":
     {
         $response = array();

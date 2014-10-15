@@ -6,6 +6,20 @@ $current_post = $sth->fetch(PDO::FETCH_ASSOC);
 
 WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
 ?>
+<script>
+    function votePost(vote_type) {
+        $.ajax({
+            type: "post",
+            url: "/ajax.php?act=vote-post",
+            traditional: true,
+            data: {"post_id": <?=$current_post["post_id"];?>, "vote_type": vote_type},
+            success: function(e) {
+                alert("Voted! " + e);
+                var obj = $.parseJSON(e);
+            }
+        });
+    }
+</script>
 <div class="container">
     <div class="default_page post_page">
         <article>
@@ -89,18 +103,26 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
                     </div>
                 </div>
             </div>
-            <? if (Account::isAuth()) { ?>
-            <div class="header">
-                Оцените материал
-            </div>
-            <div class="vote_actions">
-                <div>
-                    <a href="javascript:void(0);" class="vote_up_button"></a>
+            <?
+            $sth = Database::gi()->execute("select user_id from users_votes where user_id = ? and post_id = ?", array(Account::getCurrent()->getId(), $post_id));
+            $current_vote = $sth->fetch(PDO::FETCH_ASSOC);
+            ?>
+            <? if ($sth->rowCount() > 0) { ?>
+                <div class="header">
+                    Вы оценили материал
                 </div>
-                <div>
-                    <a href="javascript:void(0);" class="vote_down_button"></a>
+            <? } else if (Account::isAuth()) { ?>
+                <div class="header">
+                    Оцените материал
                 </div>
-            </div>
+                <div class="vote_actions">
+                    <div>
+                        <a href="javascript:void(0);" class="vote_up_button" onclick="votePost('up');"></a>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0);" class="vote_down_button" onclick="votePost('down');"></a>
+                    </div>
+                </div>
             <? } ?>
         </aside>
     </div>

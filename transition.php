@@ -16,6 +16,27 @@ import("package/Parsedown.php");
 $webpage = Webpage::gi();
 
 switch (Request::get("act")) {
+    case "add-comment":
+    {
+        $post_id = Request::post("post_id", 0);
+        if ($post_id == 0) {
+            WebPage::gi()->redirect("/");
+        }
+        if (!Account::isAuth()) {
+            WebPage::gi()->redirect("/post-" . $post_id);
+        }
+        $meta_text = Request::post("comment_text");
+        if (empty($meta_text)) {
+            WebPage::gi()->redirect("/post-" . $post_id);
+        }
+        $sth = Database::gi()->execute("select post_id from posts where post_id = ?", array($post_id));
+        if ($sth->rowCount() == 0) {
+            WebPage::gi()->redirect("/");
+        }
+        $cached_text = Parsedown::instance()->text(htmlspecialchars($meta_text));
+        $sth = Database::gi()->execute("insert into comments (user_id, post_id, meta_text, cached_text, creation_time) values(?, ?, ?, ?, now())", array(Account::getCurrent()->getId(), $post_id, $meta_text, $cached_text));
+        WebPage::gi()->redirect("/post-" . $post_id . "#comment_" . Database::gi()->lastInsertId("comment_id"));
+    } break;
     case "add-post":
     {
         if (Account::isAuth()) {

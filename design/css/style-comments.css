@@ -1,0 +1,41 @@
+.comment_row {
+	height:inherit;
+	min-height:50px;
+	border-top: 1px solid #DAE1E8;
+	overflow: auto;
+	padding-top: 3px;
+	width: 100%;
+}
+
+.comment_row .img {
+	width: 50px;
+    padding: 5px 0;
+}
+
+.comment_row .info {
+	overflow: hidden;
+	width: auto;
+	padding-left: 5px;
+}
+
+.comment_row .info .name {
+	font-size: 1.4em;
+    padding: 5px 0;
+}
+
+.comment_row .text {
+    padding: 10px 0;
+    width: 100%;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.comment_row .actions {
+	width: 50px;
+}
+
+.comment_row .time {
+    padding: 5px 0;
+	font-size: 1.2em;
+    color: #666;
+}

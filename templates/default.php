@@ -39,12 +39,12 @@
                     <a href="/add/" class="button"><span class="fui-plus"></span> Добавить пост</a>
                 </div>
                 <div class="profile">
-                    <a href="/profile-<?=Account::getCurrent()->getId();?>">
+                    <a href="/community/<?=Account::getCurrent()->getLogin();?>">
                         <span class="fui-user"></span> <?=Account::getCurrent()->getLogin();?>
                     </a>
                 </div>
                 <div class="action">
-                    <a href="/profile-<?=Account::getCurrent()->getId();?>">
+                    <a href="/community/<?=Account::getCurrent()->getLogin();?>">
                         <span class="fui-gear"></span>
                     </a>
                 </div>

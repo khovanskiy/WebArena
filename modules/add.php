@@ -1,7 +1,5 @@
 <?
 WebPage::gi()->beginSet(WebPage::CONTENT);
-
-import("package/OEmbedParser.php");
 ?>
 
     <script>

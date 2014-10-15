@@ -1,11 +1,12 @@
 <?
 WebPage::gi()->set(WebPage::TITLE, "Список тегов");
 WebPage::gi()->beginSet(WebPage::CONTENT);
-$sth = Database::gi()->execute("select tags.* from tags order by name", null);
+$null_array = {};
+$sth = Database::gi()->execute("select tags.* from tags order by name", $null_array);
 $tagArraySortedByName = $sth->fetchAll();
-$sth = Database::gi()->execute("select tags.* from tags order by posts_total_count desc", null);
+$sth = Database::gi()->execute("select tags.* from tags order by posts_total_count desc", $null_array);
 $tagArraySortedByPostsCount = $sth->fetchAll();
-$sth = Database::gi()->execute("select tags.* from tags order by posts_best_count desc", null);
+$sth = Database::gi()->execute("select tags.* from tags order by posts_best_count desc", $null_array);
 $tagArraySortedByBestPostsCount = $sth->fetchAll(); ?>
 	
 	<script>

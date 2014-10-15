@@ -31,7 +31,7 @@
                 <nav class="navigate_menu">
                     <ul>
                         <li><a href="/">Лучшие посты</a></li>
-                        <li><a href="/">Лучшие теги</a></li>
+                        <li><a href="/taglist/">Лучшие теги</a></li>
                         <li><a href="/">Сообщество</a></li>
                     </ul>
                 </nav>

@@ -22,7 +22,7 @@ WebPage::gi()->beginSet(WebPage::CONTENT);
             <?
 
             $sth = Database::gi()->execute("select posts.type, posts.*, posts.creation_time as post_creation_time, users.login from posts, users where posts.user_id =  users.user_id order by posts.creation_time desc");
-
+            //$sth = Database::gi()->execute("select posts.*, posts.creation_time as post_creation_time, users.login, ((positive + 1.9208) / (positive + negative) - 1.96 * SQRT((positive * negative) / (positive + negative) + 0.9604) / (positive + negative)) / (1 + 3.8416 / (positive + negative)) AS ci_lower_bound from posts, users where posts.user_id =  users.user_id order by ci_lower_bound desc");
             $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
 
             function densityUp(array &$density, $pattern)

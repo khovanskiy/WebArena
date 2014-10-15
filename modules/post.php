@@ -5,7 +5,7 @@ $sth = Database::gi()->execute("select posts.*, posts.creation_time as post_crea
 $current_post = $sth->fetch(PDO::FETCH_ASSOC);
 ?>
 <div class="container">
-    <div class="post_page">
+    <div class="default_page post_page">
         <article>
             <h1><?=$current_post["title"];?></h1>
             <? if (!empty($current_post["content_url"])) { ?>

@@ -29,10 +29,7 @@ import("package/OEmbedParser.php");
     </script>
 
     <div class="container">
-        <div class="post_edit_page">
-            <div style="width: 100%; height: 10px; background: #358cce;">
-
-            </div>
+        <div class="default_page post_edit_page">
             <div class="edit_bar">
                 <div class="actions_grid">
                     <div class="action_cell" id="action_cell_0">

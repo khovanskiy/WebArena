@@ -15,9 +15,9 @@
 </head>
 <body>
 <? if (!Account::isAuth()) { ?>
-<div class="primary-message clear-fix">
+<div class="message primary-message clear-fix">
     <div class="container" style="text-align: center;">
-        WebArena - это классные фото и видео каждый день! <a href="/join/">Присоединяйтесь к нам!</a> <a href="" class="close">x</a>
+        WebArena - это классные фото и видео каждый день! <a href="/auth/">Присоединяйтесь к нам!</a> <a href="" class="close">x</a>
     </div>
 </div>
 <? } ?>

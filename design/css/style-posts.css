@@ -37,6 +37,14 @@
     padding: 10px;
 }
 
+.posts_grid > div:first-child {
+    padding-left: 0;
+}
+
+.posts_grid > div:last-child {
+    padding-right: 0;
+}
+
 .posts_grid .post_cell {
     overflow: auto;
     width: 100%;

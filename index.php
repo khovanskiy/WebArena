@@ -13,6 +13,7 @@ import("package/Cookie.php");
 import("package/Database.php");
 import("package/WebPage.php");
 import("package/Account.php");
+import("package/URL.php");
 
 $current = WebPage::gi();
 $current->setModule(Request::get("module", "index"));

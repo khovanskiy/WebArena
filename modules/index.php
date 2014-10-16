@@ -4,14 +4,16 @@ import("package/PostStacker.php");
 WebPage::gi()->set(WebPage::TITLE, "Лента - WebArena");
 WebPage::gi()->beginSet(WebPage::CONTENT);
 
+$sorting = Request::get("sorting", "popular", array("popular", "fresh"));
+
 ?>
     <div class="posts_stream_page">
         <div class="filter_bar">
             <div class="container">
                 <nav>
                     <ul>
-                        <li><a href="">Популярное</a></li>
-                        <li><a href="">Свежее</a></li>
+                        <li class="<?=($sorting == "popular" ? "active_item" : "");?>"><a href="<?=URL::getCurrent()->setParam("sorting", "popular")->relative();?>">Популярное</a></li>
+                        <li class="<?=($sorting == "fresh" ? "active_item" : "")?>"><a href="<?=URL::getCurrent()->setParam("sorting", "fresh")->relative();?>">Свежее</a></li>
                     </ul>
                 </nav>
             </div>
@@ -20,9 +22,19 @@ WebPage::gi()->beginSet(WebPage::CONTENT);
 
         <div class="container">
             <?
+            $sth = null;
+            switch ($sorting)
+            {
+                case "popular":
+                {
+                    $sth = Database::gi()->execute("select posts.*, posts.creation_time as post_creation_time, users.login, ((positive + 1.9208) / (positive + negative) - 1.96 * SQRT((positive * negative) / (positive + negative) + 0.9604) / (positive + negative)) / (1 + 3.8416 / (positive + negative)) AS ci_lower_bound from posts, users where posts.user_id =  users.user_id order by ci_lower_bound desc limit 100");
+                } break;
+                case "fresh":
+                {
+                    $sth= Database::gi()->execute("select posts.type, posts.*, posts.creation_time as post_creation_time, users.login from posts, users where posts.user_id =  users.user_id order by posts.creation_time desc limit 100");
+                } break;
 
-            $sth = Database::gi()->execute("select posts.type, posts.*, posts.creation_time as post_creation_time, users.login from posts, users where posts.user_id =  users.user_id order by posts.creation_time desc");
-            //$sth = Database::gi()->execute("select posts.*, posts.creation_time as post_creation_time, users.login, ((positive + 1.9208) / (positive + negative) - 1.96 * SQRT((positive * negative) / (positive + negative) + 0.9604) / (positive + negative)) / (1 + 3.8416 / (positive + negative)) AS ci_lower_bound from posts, users where posts.user_id =  users.user_id order by ci_lower_bound desc");
+            }
             $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
 
             function densityUp(array &$density, $pattern)

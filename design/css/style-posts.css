@@ -2,22 +2,27 @@
 
 }
 
-.posts_stream_page .filter_bar {
+.filter_bar {
     width: 100%;
     height: 85px;
     margin: 0 0 10px 0;
     background: #fff;
 }
 
-.posts_stream_page .filter_bar li {
+.filter_bar li {
     display: inline-block;
     line-height: 85px;
     padding: 0 25px 0 0;
 }
-.posts_stream_page .filter_bar a {
+.filter_bar a {
     font-size: 1.6em;
     color: #a6a5a5;
     display: block;
+}
+
+.filter_bar .active_item a {
+    color: #358cce;
+    font-weight: bold;
 }
 
 .posts_grid {

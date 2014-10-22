@@ -84,6 +84,18 @@ function decorateLength($text, $max_length = 200)
     return $text;
 }
 
+/**
+ * @param int $positive
+ * @param int $negative
+ * @return float
+ */
+function getPopularity($positive, $negative) {
+    if ($positive == 0 && $negative == 0) {
+        return 0.0;
+    }
+    return (($positive + 1.9208) / ($positive + $negative) - 1.96 * sqrt(($positive * $negative) / ($positive + $negative) + 0.9604) / ($positive + $negative)) / (1 + 3.8416 / ($positive + $negative));
+}
+
 function buildGrid(array &$rows, $offset, $counts)
 {
     $count = count($counts);
@@ -202,4 +214,11 @@ if ($counts[$i] != 4) {
     </div>
     <?
     return $count;
+}
+
+function updatePostsCache() {
+    $sth = Database::gi()->execute("set @fresh_page:= 0; update posts set posts.fresh_page = (CEIL((@fresh_page:= @fresh_page + 1) / ?)) ORDER BY creation_time DESC;", array(5));
+    $sth->closeCursor(); // else PDO error #2014
+    //update posts set popularity = ((positive + 1.9208) / (positive + negative) - 1.96 * SQRT((positive * negative) / (positive + negative) + 0.9604) / (positive + negative)) / (1 + 3.8416 / (positive + negative)) where positive <> 0 || negative <> 0
+    Database::gi()->execute("set @popular_page:= 0; update posts set posts.popular_page = (CEIL((@popular_page:= @popular_page + 1) / ?)) ORDER BY popularity DESC, creation_time DESC;", array(5));
 }

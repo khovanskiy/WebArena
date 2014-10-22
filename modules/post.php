@@ -14,6 +14,7 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
             traditional: true,
             data: {"post_id": <?=$current_post["post_id"];?>, "vote_type": vote_type},
             success: function(e) {
+                alert(e);
                 var obj = $.parseJSON(e);
             }
         });

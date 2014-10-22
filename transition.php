@@ -35,6 +35,7 @@ switch (Request::get("act")) {
         }
         $cached_text = Parsedown::instance()->text(htmlspecialchars($meta_text));
         $sth = Database::gi()->execute("insert into comments (user_id, post_id, meta_text, cached_text, creation_time) values(?, ?, ?, ?, now())", array(Account::getCurrent()->getId(), $post_id, $meta_text, $cached_text));
+
         WebPage::gi()->redirect("/post-" . $post_id . "#comment_" . Database::gi()->lastInsertId("comment_id"));
     } break;
     case "add-post":
@@ -50,6 +51,9 @@ switch (Request::get("act")) {
                         $meta_text = Request::post("meta_text", "");
                         $cached_text = Parsedown::instance()->text($meta_text);
                         $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text) values(?, ?, now(), ?, ?, ?)", array(Account::getCurrent()->getId(), 1, $title, $meta_text, $cached_text));
+
+                        updatePostsCache();
+
                         $webpage->redirect("/post-" . Database::gi()->lastInsertId("post_id"));
                     }
                         break;
@@ -70,6 +74,9 @@ switch (Request::get("act")) {
                         $video = $parser->parse($content_url);
 
                         $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, thumbnail_url, content_url, content_type) values(?, ?, now(), ?, ?, ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 4, $title, $meta_text, $cached_text, $video->thumbnail_url, $video->content_id, $video->content_type));
+
+                        updatePostsCache();
+
                         $webpage->redirect("/post-" . Database::gi()->lastInsertId("post_id"));
                     }
                         break;
@@ -103,14 +110,12 @@ switch (Request::get("act")) {
         }
     }
     break;
-
     case "exit":
     {
         session_destroy();
         header("Location: /");
     }
     break;
-
     case "registration":
     {
         $login = trim(Request::post("login"));
@@ -148,26 +153,6 @@ switch (Request::get("act")) {
 
     }
         break;
-
-    case "add-form-element":
-    {
-        if (Account::isAuth()) {
-            $type = (int)Request::post("type");
-            $name = Request::post("name");
-            $required = Request::post("required") == "" ? 1 : 0;
-            $id_form = Request::post("id_form");
-
-            if (!empty($id_form)) {
-                $id_element = uniqid();
-                $sth = Database::gi()->query("select max(position) as `max_position` from `form-elements` where id_form = '" . $id_form . "'");
-                $row = $sth->fetch(PDO::FETCH_ASSOC);
-                $max_position = $row["max_position"];
-                Database::gi()->query("insert into `form-elements`(id_element, id_form, type, position, name, required) values('" . $id_element . "','" . $id_form . "', " . $type . ", " . ($max_position + 1) . ",'" . $name . "', " . $required . ")");
-            }
-        }
-    }
-        break;
-
     case "upload-photo":
     {
         if (Account::isAuth()) {
@@ -193,7 +178,6 @@ switch (Request::get("act")) {
         }
     }
         break;
-
     case "update-page":
     {
         if (Account::isAuth()) {
@@ -216,7 +200,6 @@ switch (Request::get("act")) {
         }
     }
         break;
-
     case "update-news":
     {
         if (Account::isAuth()) {

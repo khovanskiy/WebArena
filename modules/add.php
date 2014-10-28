@@ -33,9 +33,9 @@ WebPage::gi()->beginSet(WebPage::CONTENT);
                     <div class="action_cell" id="action_cell_0">
                         <a href="javascript: void(0);" onclick="choosePostEditBlock(0);"><span class="fui-new"></span> Текстовой пост</a>
                     </div>
-                    <div class="action_cell" id="action_cell_1">
+                    <!--<div class="action_cell" id="action_cell_1">
                         <a href="javascript: void(0);" onclick="choosePostEditBlock(1);"><span class="fui-photo"></span> Графический пост</a>
-                    </div>
+                    </div>-->
                     <div class="action_cell" id="action_cell_2">
                         <a href="javascript: void(0);" onclick="choosePostEditBlock(2);"><span class="fui-video"></span> Мультимедийный пост</a>
                     </div>
@@ -55,6 +55,11 @@ WebPage::gi()->beginSet(WebPage::CONTENT);
                     <div class="row text">
                         <label>Текст</label>
                         <textarea name="meta_text"></textarea>
+                    </div>
+
+                    <div class="row text">
+                        <label>Теги</label>
+                        <input type="text" name="tags"/>
                     </div>
 
                     <div class="row">
@@ -105,6 +110,11 @@ WebPage::gi()->beginSet(WebPage::CONTENT);
                     <div class="row text">
                         <label>Описание</label>
                         <textarea name="meta_text"></textarea>
+                    </div>
+
+                    <div class="row text">
+                        <label>Теги</label>
+                        <input type="text" name="tags"/>
                     </div>
 
                     <div class="row">

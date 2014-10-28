@@ -16,6 +16,7 @@ import("package/Parsedown.php");
 $webpage = Webpage::gi();
 
 switch (Request::get("act")) {
+
     case "add-comment":
     {
         $post_id = Request::post("post_id", 0);
@@ -38,62 +39,34 @@ switch (Request::get("act")) {
 
         WebPage::gi()->redirect("/post-" . $post_id . "#comment_" . Database::gi()->lastInsertId("comment_id"));
     } break;
+
     case "add-post":
     {
-        if (Account::isAuth()) {
-            $title = Request::post("title");
-            $type = (int)Request::post("type");
-
-            if (!empty($title) && $type != 0) {
-                switch ($type) {
-                    case 1:
-                    {
-                        $meta_text = Request::post("meta_text", "");
-                        $cached_text = Parsedown::instance()->text($meta_text);
-                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text) values(?, ?, now(), ?, ?, ?)", array(Account::getCurrent()->getId(), 1, $title, $meta_text, $cached_text));
-
-                        updatePostsCache();
-
-                        $webpage->redirect("/post-" . Database::gi()->lastInsertId("post_id"));
-                    }
-                        break;
-                    case 2:
-                    {
-
-                    }
-                        break;
-                    case 4:
-                    {
-                        $parser = new OEmbedParser();
-
-                        $meta_text = Request::post("meta_text", "");
-                        $cached_text = Parsedown::instance()->text($meta_text);
-
-                        $content_url = Request::post("content_url", "");
-
-                        $video = $parser->parse($content_url);
-
-                        $sth = Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, thumbnail_url, content_url, content_type) values(?, ?, now(), ?, ?, ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 4, $title, $meta_text, $cached_text, $video->thumbnail_url, $video->content_id, $video->content_type));
-
-                        updatePostsCache();
-
-                        $webpage->redirect("/post-" . Database::gi()->lastInsertId("post_id"));
-                    }
-                        break;
-                    default:
-                        {
-                        $webpage->redirect("/add/");
-                        }
-                        break;
-                }
-            } else {
-                echo "title is empty";
-            }
-        } else {
-            echo "bad =(";
+        if (!Account::isAuth()) {
+            WebPage::gi()->redirect("/");
         }
-    }
-    break;
+
+        $title = Request::post("title");
+        $type = (int)Request::post("type");
+        $meta_text = Request::post("meta_text", "");
+        $content_url = Request::post("content_url", "");
+        $tags = parseTags(Request::post("tags"));
+
+        $post_id = 0;
+        if ($type == 1) {
+            $post_id = addTextPost($title, $meta_text);
+        } else if ($type == 2) {
+
+        } else if ($type == 4) {
+            $post_id = addVideoPost($title, $meta_text, $content_url);
+        } else {
+            WebPage::gi()->redirect("/");
+        }
+        addTags($post_id, $tags);
+        updatePostsCache();
+        WebPage::gi()->redirect("/post-" . $post_id);
+    } break;
+
     case "auth":
     {
         $login = Request::post("login");
@@ -108,14 +81,14 @@ switch (Request::get("act")) {
         } else {
             $webpage->redirect("/auth/?status=2");
         }
-    }
-    break;
+    } break;
+
     case "exit":
     {
         session_destroy();
         header("Location: /");
-    }
-    break;
+    } break;
+
     case "registration":
     {
         $login = trim(Request::post("login"));
@@ -151,8 +124,8 @@ switch (Request::get("act")) {
             $webpage->redirect("/join/?status=1");
         }
 
-    }
-        break;
+    } break;
+
     case "upload-photo":
     {
         if (Account::isAuth()) {

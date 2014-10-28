@@ -14,8 +14,9 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
             traditional: true,
             data: {"post_id": <?=$current_post["post_id"];?>, "vote_type": vote_type},
             success: function(e) {
-                alert(e);
+                //alert(e);
                 var obj = $.parseJSON(e);
+                window.document.reload();
             }
         });
     }
@@ -24,6 +25,16 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
     <div class="default_page post_page">
         <article>
             <h1><?=$current_post["title"];?></h1>
+            <ul class="tags">
+            <?
+            $tags = getTags($post_id);
+            for ($i = 0; $i < count($tags); ++$i) {
+                ?>
+                <li><a href="/tags/<?=urlencode($tags[$i]["name"]);?>"><?=$tags[$i]["name"];?></a></li>
+                <?
+            }
+            ?>
+            </ul>
             <? if (!empty($current_post["content_url"])) { ?>
                 <? if ($current_post["content_type"] == 0) { ?>
                     <div class="video">

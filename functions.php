@@ -46,9 +46,10 @@ function langsnobRu($num, $word0, $word1, $word2, $wordnum0)
     return $num . " " . $word0;
 }
 
+date_default_timezone_set("Europe/Moscow");
 function decorateDatetime($datetime)
 {
-    $diff = strtotime("now") - strtotime($datetime);
+    $diff = strtotime("now - 1 hour") - strtotime($datetime); // workaround
     if ($diff <= 60) {
         return langsnobRu($diff, "секунд", "секунда", "секунды", "") . " назад";
     } else if ($diff <= 3600) {
@@ -338,10 +339,10 @@ if (!function_exists('array_column')) {
     }
 }
 
-function addTextPost($title, $meta_text)
+function addTextPost($title, $meta_text, $thumbnail_url)
 {
     $cached_text = Parsedown::instance()->text($meta_text);
-    Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text) values(?, ?, now(), ?, ?, ?)", array(Account::getCurrent()->getId(), 1, $title, $meta_text, $cached_text));
+    Database::gi()->execute("insert into posts (user_id, type, creation_time, title, meta_text, cached_text, thumbnail_url) values(?, ?, now(), ?, ?, ?, ?)", array(Account::getCurrent()->getId(), 1, $title, $meta_text, $cached_text, $thumbnail_url));
     $post_id = Database::gi()->lastInsertId("post_id");
 
     return $post_id;
@@ -381,4 +382,18 @@ function parseTags($tags_string)
         $tags[$i] = trim($tags[$i]);
     }
     return $tags;
+}
+
+function generateMenu($current, $max) {
+    ?>
+    <ul class="pages_menu">
+    <?
+    for ($i = 1; $i <= $max; ++$i) {
+        ?>
+            <li <?=($i == $current ? 'class="selected"' : '');?>><a href="<?=URL::getCurrent()->setParam("page", $i)->relative();?>"><?=$i;?></a></li>
+        <?
+    }
+    ?>
+    </ul>
+    <?
 }

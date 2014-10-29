@@ -90,7 +90,7 @@ button, a.button {
 }
 
 button:hover, a.button:hover {
-    background-color: #F3B100;
+    background-color: #f3b100;
     color: black;
 }
 
@@ -124,6 +124,36 @@ input, textarea {
     padding: 5px;
     z-index: 1;
     font-size: 1.4em;
+}
+
+.pages_menu {
+    width: 100%;
+}
+
+.pages_menu li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.pages_menu li a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #358cce;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50% 50%;
+}
+
+.pages_menu li a:hover {
+    background-color: #2c69a2;
+}
+
+.pages_menu li.selected a, .pages_menu li.selected a:hover {
+    background-color: #f3b100;
+    color: black;
 }
 
 .add_post_action a {
@@ -211,4 +241,5 @@ pre
 	border-bottom: solid 1px #d9eaf2;
 	border-radius: 3px;
 	overflow: auto;
+    max-width: 100%;
 }

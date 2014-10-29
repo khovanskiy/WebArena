@@ -181,15 +181,15 @@
 }
 
 .post_page article h1 {
-    font-size: 3em;
-    line-height: 1.5em;
+    font-size: 3rem;
+    line-height: 3rem;
     font-weight: 200;
     padding: 0 0 25px 0;
 }
 
 .post_page article h2 {
-    font-size: 2em;
-    line-height: 1.2em;
+    font-size: 2rem;
+    line-height: 2rem;
     font-weight: 200;
     padding: 25px 0;
     color: #358cce;
@@ -320,7 +320,29 @@ p + ul, p + ol {
     padding: 25px 0 0 50px;
 }
 
-.post_page aside .vote_actions .vote_up_button {
+.post_page aside .vote_actions .vote_button {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: #999 no-repeat center center;
+    background-size: 50%;
+    border: 3px solid #666;
+    border-radius: 50%;
+}
+
+.post_page aside .vote_actions .vote_button.selected {
+    background-color: #f3b100;
+}
+
+.post_page aside .vote_actions .vote_button_up {
+    background-image: url('/design/images/vote-up.png')
+}
+
+.post_page aside .vote_actions .vote_button_down {
+    background-image: url('/design/images/vote-down.png')
+}
+
+/*.post_page aside .vote_actions .vote_up_button {
     display: block;
     width: 50px;
     height: 50px;
@@ -348,7 +370,7 @@ p + ul, p + ol {
 .post_page aside .vote_actions .vote_down_button:hover {
     background: #f55641 url('/design/images/vote-down-hover.png') no-repeat center center;
     background-size: 50%;
-}
+}*/
 
 .post_edit_page {
 }

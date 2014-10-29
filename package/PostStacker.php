@@ -293,10 +293,17 @@ class PostStacker
 
         for ($i = $offset; $i < count($mass); $i++) {
             $state = & $this->states[$stateNumber];
-            if ($state[$mass[$i]["type"]] == -1) {
+            if ($mass[$i]["type"] == 4)
+                $current_type = 4;
+            else if (!empty($mass[$i]["thumbnail_url"])) {
+                $current_type = 2;
+            } else {
+                $current_type = 1;
+            }
+            if ($state[$current_type] == -1) {
                 break;
             }
-            $stateNumber = $state[$mass[$i]["type"]];
+            $stateNumber = $state[$current_type];
             if ($this->answers[$stateNumber] != null) {
                 $answerStateNumber = $stateNumber;
             }

@@ -54,7 +54,7 @@ switch (Request::get("act")) {
 
         $post_id = 0;
         if ($type == 1) {
-            $post_id = addTextPost($title, $meta_text);
+            $post_id = addTextPost($title, $meta_text, $content_url);
         } else if ($type == 2) {
 
         } else if ($type == 4) {

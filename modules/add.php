@@ -53,6 +53,11 @@ WebPage::gi()->beginSet(WebPage::CONTENT);
                     </div>
 
                     <div class="row text">
+                        <label>Обложка поста</label>
+                        <input type="text" name="content_url"/>
+                    </div>
+
+                    <div class="row text">
                         <label>Текст</label>
                         <textarea name="meta_text"></textarea>
                     </div>

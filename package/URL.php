@@ -16,6 +16,7 @@ class URL {
         } else {
             $this->protocol = "http";
         }
+        $this->params = $params;
         $this->module = $module;
         $this->host = $host;
     }
@@ -60,7 +61,7 @@ class URL {
         if (count($this->params) > 0) {
             $url .= "?";
             foreach ($this->params as $key => $value) {
-                $url .= urlencode($key) . "=" . urlencode($value);
+                $url .= urlencode($key) . "=" . urlencode($value) . "&";
             }
         }
         return $url;

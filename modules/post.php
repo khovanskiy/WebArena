@@ -8,6 +8,7 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
 ?>
 <script>
     function votePost(vote_type) {
+        $("#vote_button_" + vote_type).addClass("selected");
         $.ajax({
             type: "post",
             url: "/ajax.php?act=vote-post",
@@ -116,7 +117,7 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
             </div>
             <? if (Account::isAuth()) { ?>
                 <?
-                $sth = Database::gi()->execute("select user_id from users_votes where user_id = ? and post_id = ?", array(Account::getCurrent()->getId(), $post_id));
+                $sth = Database::gi()->execute("select user_id, direction from users_votes where user_id = ? and post_id = ?", array(Account::getCurrent()->getId(), $post_id));
                 $current_vote = $sth->fetch(PDO::FETCH_ASSOC);
                 ?>
                 <? if ($sth->rowCount() > 0) { ?>
@@ -127,15 +128,15 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
                     <div class="header">
                         Оцените материал
                     </div>
+                <? } ?>
                     <div class="vote_actions">
                         <div>
-                            <a href="javascript:void(0);" class="vote_up_button" onclick="votePost('up');"></a>
+                            <a href="javascript:void(0);" id="vote_button_up" class="vote_button vote_button_up <?=($current_vote["direction"] == 1 ? "selected" : "");?>" onclick="votePost('up');"></a>
                         </div>
                         <div>
-                            <a href="javascript:void(0);" class="vote_down_button" onclick="votePost('down');"></a>
+                            <a href="javascript:void(0);" id="vote_button_down" class="vote_button vote_button_down <?=($current_vote["direction"] == -1 ? "selected" : "");?>" onclick="votePost('down');"></a>
                         </div>
                     </div>
-                <? } ?>
             <? } ?>
         </aside>
     </div>

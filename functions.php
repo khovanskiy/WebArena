@@ -217,10 +217,10 @@ if ($counts[$i] != 4) {
 
 function updatePostsCache()
 {
-    $sth = Database::gi()->execute("set @fresh_page:= 0; update posts set posts.fresh_page = (CEIL((@fresh_page:= @fresh_page + 1) / ?)) ORDER BY creation_time DESC;", array(5));
+    $sth = Database::gi()->execute("set @fresh_page:= 0; update posts set posts.fresh_page = (CEIL((@fresh_page:= @fresh_page + 1) / ?)) ORDER BY creation_time DESC;", array(20));
     $sth->closeCursor(); // else PDO error #2014
     //update posts set popularity = ((positive + 1.9208) / (positive + negative) - 1.96 * SQRT((positive * negative) / (positive + negative) + 0.9604) / (positive + negative)) / (1 + 3.8416 / (positive + negative)) where positive <> 0 || negative <> 0
-    Database::gi()->execute("set @popular_page:= 0; update posts set posts.popular_page = (CEIL((@popular_page:= @popular_page + 1) / ?)) ORDER BY popularity DESC, creation_time DESC;", array(5));
+    Database::gi()->execute("set @popular_page:= 0; update posts set posts.popular_page = (CEIL((@popular_page:= @popular_page + 1) / ?)) ORDER BY popularity DESC, creation_time DESC;", array(20));
 }
 
 function repeatAndImplode($glue, $part, $count)

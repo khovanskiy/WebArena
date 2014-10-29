@@ -8,16 +8,18 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
 ?>
 <script>
     function votePost(vote_type) {
-        $("#vote_button_" + vote_type).addClass("selected");
         $.ajax({
             type: "post",
             url: "/ajax.php?act=vote-post",
             traditional: true,
             data: {"post_id": <?=$current_post["post_id"];?>, "vote_type": vote_type},
             success: function(e) {
-                //alert(e);
                 var obj = $.parseJSON(e);
-                window.document.reload();
+                if (obj["vote_type"] == "up") {
+                    $("#vote_button_up").addClass("selected");
+                } else if (obj["vote_type"] == "down") {
+                    $("#vote_button_down").addClass("selected");
+                }
             }
         });
     }

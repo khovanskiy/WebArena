@@ -105,7 +105,7 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
                 <div class="login">
                     <a href="/community/<?=$current_post["login"];?>"><?=$current_post["login"];?></a>
                 </div>
-                <div class="author_description">
+                <!--<div class="author_description">
                     <div class="fl_l" style="color:#fff; font-size: 1.4em">
                         <div style="padding: 0 5px 5px 0;">Рейтинг: 0</div>
                         <div style="padding: 0 5px 5px 0;">Кол-во постов: 0</div>
@@ -113,7 +113,7 @@ WebPage::gi()->set(WebPage::TITLE, $current_post["title"]);
                     <div class="avatar">
                         <img src="/design/images/example.jpg"/>
                     </div>
-                </div>
+                </div>-->
             </div>
             <? if (Account::isAuth()) { ?>
                 <?

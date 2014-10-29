@@ -11,7 +11,7 @@ RewriteRule /?\.htaccess$ - [F,L]
 RewriteRule /?config\.php$ - [F,L]
 
 RewriteRule ^post-(.*)$ index.php?module=post&post_id=$1 [L,QSA]
-RewriteRule ^community/(.*)$ index.php?module=phofile&login=$1 [L,QSA]
+RewriteRule ^community/(.*)$ index.php?module=profile&login=$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
